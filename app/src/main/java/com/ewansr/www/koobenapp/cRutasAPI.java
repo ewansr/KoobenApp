@@ -42,9 +42,4 @@ public class cRutasAPI {
     public static String UrlJSON_tiposReceta = urlDominio + nombreAPI + "recetas/tipos";
     public static int VisibleElements = 5;
 
-
-
-
-
-
 }
