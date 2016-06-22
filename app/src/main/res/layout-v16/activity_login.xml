@@ -33,13 +33,13 @@
                 android:layout_height="45dp"
                 android:background="@drawable/register_password"
                 android:hint="Usuario"
-                android:inputType="text"
                 android:textColor="#000000"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:inputType="textEmailAddress" />
 
             <EditText
                 android:id="@+id/edtContrasena"

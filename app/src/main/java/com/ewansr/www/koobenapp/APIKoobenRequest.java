@@ -9,7 +9,6 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.io.InputStream;
 
@@ -18,13 +17,23 @@ import java.io.InputStream;
  *
  * @author edmsamuel 20/06/16.
  */
-public abstract class KoobenRequest extends AsyncTask<String, Void, JSONObject> {
+public abstract class APIKoobenRequest extends AsyncTask<String, Void, JSONObject> {
     private Boolean hasErrors;
     private Exception error;
     private JSONObject datos;
     private JSONObject response;
     public String response_text;
-    public KoobenRequestType tipo;
+    public APIKoobenRequestType tipo;
+    public APIKoobenRequestHeaders headers;
+
+
+    /**
+     * Constructor.
+     *
+     */
+    public APIKoobenRequest() {
+        headers = new APIKoobenRequestHeaders();
+    }
 
 
 
@@ -50,44 +59,54 @@ public abstract class KoobenRequest extends AsyncTask<String, Void, JSONObject> 
             URL url = new URL( params[0] );
             HttpURLConnection url_connection = ( HttpURLConnection ) url.openConnection();
 
-            if ( this.tipo != KoobenRequestType.GET && this.tipo != KoobenRequestType.DELETE ) {
+            if ( this.tipo != APIKoobenRequestType.GET && this.tipo != APIKoobenRequestType.DELETE ) {
 
                 int content_length;
                 byte[] content_bytes;
                 DataOutputStream dataOutputStream;
+                APIKoobenRequestHeader header;
 
+                // información del body
                 body = datos.toString();
                 content_bytes = body.getBytes();
                 content_length = content_bytes.length;
 
+                // establecer headers.
                 url_connection.setRequestProperty( "Content-Type", "application/json" );
                 url_connection.setRequestProperty( "Content-Length", Integer.toString( content_length  ) );
+                for ( int header_idx = 0; header_idx < headers.items.size(); header_idx++ ) {
+                    header = headers.get( header_idx );
+                    url_connection.setRequestProperty( header.name, header.value );
+                }
                 url_connection.setDoOutput( true );
 
+                // añadir datos al body
                 dataOutputStream = new DataOutputStream( url_connection.getOutputStream() );
                 dataOutputStream.writeBytes( body );
                 dataOutputStream.flush();
                 dataOutputStream.close();
             }
 
+            // establecer el tipo de verbo y leer código de respuesta
             url_connection.setRequestMethod( this.getRequestMethod() );
             responseCode = url_connection.getResponseCode();
             hasErrors = ( responseCode != 200 );
 
+            // obtener el resultado de la solicitud
             inputStream = new BufferedInputStream( url_connection.getInputStream() );
             bufferedReader = new BufferedReader( new InputStreamReader( inputStream ) );
-
             while ( ( line = bufferedReader.readLine() ) != null ) {
                 responseText.append( line );
             }
-
             response_text = responseText.toString();
 
+            // si la solicitud fue exitosa convertir el resultado en JSONObject
             if ( !hasErrors ) {
                 resultado = new JSONObject( response_text );
                 this.response = resultado;
             }
 
+            // terminar la conexión
             url_connection.disconnect();
         } catch ( Exception error ) {
             hasErrors = true;
@@ -122,7 +141,7 @@ public abstract class KoobenRequest extends AsyncTask<String, Void, JSONObject> 
      */
     public void get( String path ) {
         String[] urls = { prepareUrl( path ) };
-        this.tipo = KoobenRequestType.GET;
+        this.tipo = APIKoobenRequestType.GET;
         this.hasErrors = false;
         this.execute( urls );
     }
@@ -136,7 +155,7 @@ public abstract class KoobenRequest extends AsyncTask<String, Void, JSONObject> 
      */
     public void put( String path, JSONObject datos ) {
         String[] urls = { prepareUrl( path ) };
-        this.tipo = KoobenRequestType.PUT;
+        this.tipo = APIKoobenRequestType.PUT;
         this.hasErrors = false;
         this.setBody( datos );
         this.execute( urls );
@@ -151,7 +170,7 @@ public abstract class KoobenRequest extends AsyncTask<String, Void, JSONObject> 
      */
     public void delete( String path ) {
         String[] urls = { prepareUrl( path ) };
-        this.tipo = KoobenRequestType.DELETE;
+        this.tipo = APIKoobenRequestType.DELETE;
         this.hasErrors = false;
         this.setBody( datos );
         this.execute( urls );
@@ -166,7 +185,7 @@ public abstract class KoobenRequest extends AsyncTask<String, Void, JSONObject> 
      */
     public void post( String path, JSONObject datos ) {
         String[] urls = { prepareUrl( path ) };
-        this.tipo = KoobenRequestType.POST;
+        this.tipo = APIKoobenRequestType.POST;
         this.hasErrors = false;
         this.setBody( datos );
         this.execute( urls );
