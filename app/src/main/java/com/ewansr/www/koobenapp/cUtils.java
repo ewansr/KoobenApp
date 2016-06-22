@@ -3,6 +3,11 @@ package com.ewansr.www.koobenapp;
 /**
  * Created by EwanS on 08/06/2016.
  */
+import android.app.Activity;
+import android.os.Build;
+import android.view.Window;
+import android.view.WindowManager;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -24,4 +29,17 @@ public class cUtils {
         }
         catch(Exception ex){}
     }
+
+
+   /** Esta Función colorea la barra de estado en caso de ser versión compatible*/
+    public static void setStatusColor(Activity activity) {
+        Window window = activity.getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(activity.getResources().getColor(R.color.color_primario_obscuro_cyan));
+        }
+    }
+
+
 }
