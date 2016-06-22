@@ -1,12 +1,8 @@
 package com.ewansr.www.koobenapp;
 
 import android.content.Intent;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -22,17 +18,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.TextView;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-class SolicitudPrueba extends KoobenRequest {
+class SolicitudPrueba extends APIKoobenRequest {
 
     @Override
     public void KoobenRequestCompleted( JSONObject result ) {
         try {
-            if ( this.tipo == KoobenRequestType.GET ) {
+            if ( this.tipo == APIKoobenRequestType.GET ) {
                 JSONArray items = result.getJSONArray( "items" );
                 for( int index = 0; index < items.length(); index++ ) {
                     Log.d( "edmsamuel", items.getJSONObject( index ).toString() );
