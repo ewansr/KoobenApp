@@ -1,5 +1,6 @@
 package com.ewansr.www.koobenapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 import com.larvalabs.svgandroid.SVG;
 import com.larvalabs.svgandroid.SVGParser;
 
+import mehdi.sakout.fancybuttons.FancyButton;
+
 import static com.ewansr.www.koobenapp.cUtils.setStatusColor;
 
 
@@ -21,8 +24,9 @@ import static com.ewansr.www.koobenapp.cUtils.setStatusColor;
  */
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-
-    private Button btnLogin;
+    private Context context;
+    private TextView tvRegister;
+    private FancyButton btnLogin;
     private EditText mail;
     private EditText password;
 
@@ -34,10 +38,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView( R.layout.activity_login );
         setStatusColor( LoginActivity.this );
 
-        btnLogin = (Button) findViewById( R.id.btnLogin );
+        context = LoginActivity.this;
+        btnLogin = (FancyButton) findViewById( R.id.btnLogin );
         mail = (EditText) findViewById( R.id.edtUsuario );
         password = (EditText) findViewById( R.id.edtContrasena );
+        tvRegister = (TextView) findViewById(R.id.tvRegister);
         btnLogin.setOnClickListener( this );
+        tvRegister.setOnClickListener( this );
     }
 
 
@@ -103,6 +110,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             autenticacion.autenticar( mail.getText().toString(), password.getText().toString() );
         }
 
-
+        if ( target.getId() == R.id.tvRegister ) {
+            Intent i = new Intent(context, RegisterMenuActivity.class);
+            startActivity(i);
+        }
     }
 }
