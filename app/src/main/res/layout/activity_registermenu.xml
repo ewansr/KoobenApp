@@ -58,5 +58,47 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Registrarse con Facebook"
+        android:id="@+id/btnFacebook"
+        android:background="@color/color_fb"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"
+        android:textColor="@color/color_Blanco"
+        android:layout_below="@+id/btnRegister"
+        android:layout_alignLeft="@+id/btnRegister"
+        android:layout_alignStart="@+id/btnRegister"
+        android:layout_alignRight="@+id/btnRegister"
+        android:layout_alignEnd="@+id/btnRegister"
+        android:layout_marginTop="5dp"
+        android:drawableLeft="@drawable/com_facebook_button_icon_white"
+        android:paddingLeft="25dip"
+        android:paddingRight="30dip"
+        android:singleLine="true"
+        android:gravity="center"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Registrarse con Google+"
+        android:id="@+id/btnGoogle"
+        android:background="@color/color_google_plus"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"
+        android:textColor="@color/color_Blanco"
+        android:drawableLeft="@drawable/com_facebook_button_icon_white"
+        android:paddingLeft="25dip"
+        android:paddingRight="30dip"
+        android:singleLine="true"
+        android:gravity="center"
+        android:layout_below="@+id/btnFacebook"
+        android:layout_alignLeft="@+id/btnFacebook"
+        android:layout_alignStart="@+id/btnFacebook"
+        android:layout_alignRight="@+id/btnFacebook"
+        android:layout_alignEnd="@+id/btnFacebook"
+        android:layout_marginTop="5dp" />
+
 
 </RelativeLayout>
