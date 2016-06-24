@@ -26,8 +26,6 @@ import java.util.List;
  * Created by EwanS on 08/06/2016.
  */
 public class cRvAdapter extends RecyclerView.Adapter<cRvAdapter.recipesViewHolder> {
-
-    public cImageLoaderCache imgLoader;
     public List<cRecetas> recipes;
     private Context context;
 
@@ -52,10 +50,8 @@ public class cRvAdapter extends RecyclerView.Adapter<cRvAdapter.recipesViewHolde
         holder.IdReceta = recipes.get(position).getId();
         holder.preparacion = recipes.get(position).name;
         holder.nombreReceta = recipes.get(position).preparation;
-        holder.initheight(-1);
 
-//        LoadRemoteImg loadRemoteImg = new LoadRemoteImg(holder.img);
-//        loadRemoteImg.execute(cRutasAPI.urlImgRecetas + cRutasAPI.imgNameRecipes + Integer.toString(recipes.get(position).getId()) + cRutasAPI.extjpg);
+        //holder.initheight(-1);
         Picasso.with(context)
                 .load(cRutasAPI.urlImgRecetas + cRutasAPI.imgNameRecipes + Integer.toString(recipes.get(position).getId()) + cRutasAPI.extjpg)
                 .error(R.drawable.cloud_outline_off)
@@ -79,7 +75,7 @@ public class cRvAdapter extends RecyclerView.Adapter<cRvAdapter.recipesViewHolde
         TextView recipeName;
         TextView recipeCode;
         ImageView img;
-        FloatingActionButton btnExpand;
+//        FloatingActionButton btnExpand;
         String url, nombreReceta, preparacion;
         int IdReceta;
         FloatingActionButton btnShow;
@@ -92,32 +88,32 @@ public class cRvAdapter extends RecyclerView.Adapter<cRvAdapter.recipesViewHolde
             windowmanager.getDefaultDisplay().getMetrics(dimension);
             final int height = dimension.heightPixels;
 
+
             cv = (CardView)itemView.findViewById(R.id.cv);
             recipeName = (TextView)itemView.findViewById(R.id.recipe_name);
             recipeCode = (TextView)itemView.findViewById(R.id.recipe_descripcion);
             img = (ImageView) itemView.findViewById(R.id.recipe_image);
-            btnExpand = (FloatingActionButton) itemView.findViewById(R.id.menu_item_compartir);
+//            btnExpand = (FloatingActionButton) itemView.findViewById(R.id.menu_item_compartir);
 
-            cv.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+//            cv.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+//                @Override
+//                public boolean onPreDraw() {
+//                    cv.getViewTreeObserver().removeOnPreDrawListener(this);
+//                    minHeight = cv.getHeight();
+//                    ViewGroup.LayoutParams layoutParams = cv.getLayoutParams();
+//                    layoutParams.height = minHeight;
+//                    cv.setLayoutParams(layoutParams);
+//
+//                    return true;
+//                }
+//            });
 
-                @Override
-                public boolean onPreDraw() {
-                    cv.getViewTreeObserver().removeOnPreDrawListener(this);
-                    minHeight = cv.getHeight();
-                    ViewGroup.LayoutParams layoutParams = cv.getLayoutParams();
-                    layoutParams.height = minHeight;
-                    cv.setLayoutParams(layoutParams);
-
-                    return true;
-                }
-            });
-
-            btnExpand.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    toggleCardViewnHeight(height);
-                }
-            });
+//            btnExpand.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    toggleCardViewnHeight(height);
+//                }
+//            });
 
             itemView.setOnClickListener(Click);
 
@@ -194,5 +190,4 @@ public class cRvAdapter extends RecyclerView.Adapter<cRvAdapter.recipesViewHolde
             anim.start();
         }
     }
-
 }

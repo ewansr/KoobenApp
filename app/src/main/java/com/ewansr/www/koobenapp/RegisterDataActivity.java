@@ -1,10 +1,5 @@
 package com.ewansr.www.koobenapp;
 
-/**
- * Created by EwanS on 21/06/2016.
- */
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,17 +11,14 @@ import mehdi.sakout.fancybuttons.FancyButton;
 
 import static com.ewansr.www.koobenapp.cUtils.setStatusColor;
 
-
 /**
- * Created by EwanS on 20/06/2016.
+ * Created by EwanS on 22/06/2016.
  */
-public class RegisterMenuActivity extends AppCompatActivity {
-
+public class RegisterDataActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registermenu);
-
+        setContentView(R.layout.activity_registerdata);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -34,13 +26,13 @@ public class RegisterMenuActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        setStatusColor(RegisterMenuActivity.this);
+        setStatusColor(RegisterDataActivity.this);
 
-        FancyButton btnLogin = (FancyButton) findViewById(R.id.btnRegister);
+        FancyButton btnLogin = (FancyButton) findViewById(R.id.btnCrearCuenta);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(RegisterMenuActivity.this, RegisterDataActivity.class);
+                Intent i = new Intent(RegisterDataActivity.this, MainActivity.class);
                 startActivity(i);
             }
         });
@@ -56,5 +48,4 @@ public class RegisterMenuActivity extends AppCompatActivity {
     private void handleOnBackPress() {
         finish();
     }
-
 }

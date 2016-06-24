@@ -16,6 +16,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -33,7 +34,7 @@ public class RecipesActivity extends AppCompatActivity implements NavigationView
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     public static RecyclerView rv;
-    public static LinearLayoutManager llm;
+    public static StaggeredGridLayoutManager llm;
 
     private static final String EXTRA_POSITION = "com.ewansr.www.koobenapp.extra.POSITION";
 
@@ -155,7 +156,7 @@ public class RecipesActivity extends AppCompatActivity implements NavigationView
 
             rv = (RecyclerView)rootView.findViewById(R.id.rv);
             rv.setHasFixedSize(true);
-            llm = new LinearLayoutManager(mainContext);
+            llm = new StaggeredGridLayoutManager (2, 1);
             rv.setLayoutManager(llm);
 
             rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
