@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.larvalabs.svgandroid.SVG;
 import com.larvalabs.svgandroid.SVGParser;
@@ -25,8 +26,10 @@ public class LoginActivity extends AppCompatActivity {
 
         setStatusColor(LoginActivity.this);
 
-        Button btnLogin = (Button) findViewById(R.id.btnLogin);
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+
+        TextView tvRegistrar = (TextView) findViewById(R.id.tvRegister);
+
+        tvRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(LoginActivity.this, RegisterMenuActivity.class);
@@ -34,6 +37,4 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }

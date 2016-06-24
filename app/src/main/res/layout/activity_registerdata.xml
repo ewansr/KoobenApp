@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -116,18 +117,29 @@
         </RelativeLayout>
     </ScrollView>
 
-    <Button
+    <mehdi.sakout.fancybuttons.FancyButton
         android:id="@+id/btnCrearCuenta"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/color_amarillo"
-        android:text="Crear Cuenta"
-        android:textColor="#ffffff"
-        android:textSize="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        fancy:fb_fontIconSize="42dp"
+        fancy:fb_borderWidth="1dp"
+        fancy:fb_defaultColor="@color/color_primario_cyan"
+        fancy:fb_focusColor="#9bd823"
+        fancy:fb_iconPosition="left"
+        fancy:fb_radius="30dp"
+        fancy:fb_text="Crear Cuenta"
+        fancy:fb_textColor="#FFFFFF"
+        fancy:fb_textSize="20sp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_margin="15dp" />
+        android:layout_alignRight="@+id/scrollView"
+        android:layout_alignEnd="@+id/scrollView"
+        android:layout_alignLeft="@+id/scrollView"
+        android:layout_alignStart="@+id/scrollView"
+        android:layout_marginBottom="15dp" />
 
     <TextView
         android:id="@+id/tvRegistro"

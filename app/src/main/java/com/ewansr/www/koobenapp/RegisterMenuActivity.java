@@ -12,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
+import mehdi.sakout.fancybuttons.FancyButton;
+
 import static com.ewansr.www.koobenapp.cUtils.setStatusColor;
 
 
@@ -34,7 +36,7 @@ public class RegisterMenuActivity extends AppCompatActivity {
 
         setStatusColor(RegisterMenuActivity.this);
 
-        Button btnLogin = (Button) findViewById(R.id.btnRegister);
+        FancyButton btnLogin = (FancyButton) findViewById(R.id.btnRegister);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
