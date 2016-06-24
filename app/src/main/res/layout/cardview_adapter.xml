@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/cv"
-        card_view:cardCornerRadius="4dp"
+        card_view:cardCornerRadius="2dp"
         card_view:cardElevation="3dp"
         card_view:cardBackgroundColor="@color/color_Blanco"
         android:layout_alignParentLeft="true"
