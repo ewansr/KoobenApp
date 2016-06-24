@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -16,23 +17,33 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ir a Formulario de Registro"
+
+    <mehdi.sakout.fancybuttons.FancyButton
         android:id="@+id/btnRegister"
-        android:background="@color/color_primario_cyan"
-        android:fontFamily="sans-serif"
-        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        fancy:fb_borderWidth="1dp"
+        fancy:fb_defaultColor="@color/color_primario_cyan"
+        fancy:fb_focusColor="#9bd823"
+        fancy:fb_iconPosition="left"
+        fancy:fb_radius="30dp"
+        fancy:fb_text="Registrarse con Formulario"
+        fancy:fb_textColor="#FFFFFF"
+        fancy:fb_textSize="18sp"
         android:layout_below="@+id/textView2"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:textColor="@color/color_Blanco" />
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp" />
+
+
 
     <TextView
         android:id="@+id/textView2"
@@ -58,5 +69,50 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp" />
 
+    <mehdi.sakout.fancybuttons.FancyButton
+        android:id="@+id/btnFacebook"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        fancy:fb_borderWidth="1dp"
+        fancy:fb_defaultColor="@color/color_fb"
+        fancy:fb_focusColor="#9bd823"
+        fancy:fb_iconPosition="left"
+        fancy:fb_radius="30dp"
+        fancy:fb_text="Regístrate con Facebook"
+        fancy:fb_textColor="#FFFFFF"
+        fancy:fb_textSize="18sp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/btnRegister"
+        android:layout_alignRight="@+id/btnRegister"
+        android:layout_alignEnd="@+id/btnRegister"
+        android:layout_alignLeft="@+id/btnRegister"
+        android:layout_alignStart="@+id/btnRegister" />
+
+    <mehdi.sakout.fancybuttons.FancyButton
+        android:id="@+id/btnGoogle"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        fancy:fb_borderWidth="1dp"
+        fancy:fb_defaultColor="@color/color_google_plus"
+        fancy:fb_focusColor="#9bd823"
+        fancy:fb_iconPosition="left"
+        fancy:fb_radius="30dp"
+        fancy:fb_text="Regístrate con Google"
+        fancy:fb_textColor="#FFFFFF"
+        fancy:fb_textSize="18sp"
+        android:layout_below="@+id/btnFacebook"
+        android:layout_alignLeft="@+id/btnFacebook"
+        android:layout_alignStart="@+id/btnFacebook"
+        android:layout_marginTop="5dp"
+        android:layout_alignRight="@+id/btnFacebook"
+        android:layout_alignEnd="@+id/btnFacebook" />
 
 </RelativeLayout>
