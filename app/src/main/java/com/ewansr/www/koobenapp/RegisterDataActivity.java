@@ -50,11 +50,6 @@ public class RegisterDataActivity extends AppCompatActivity implements View.OnCl
         setStatusColor( RegisterDataActivity.this );
         btnLogin.setOnClickListener( this );
         toolbar.setNavigationOnClickListener( this );
-
-        registro = new APIRegistro( RegisterDataActivity.this ) {
-            @Override public void registroExitoso( APIRegistroModel usuario ) { viewRegistroExitoso( usuario ); }
-            @Override public void registroError( String error ) { viewRegistroError( error ); }
-        };
     }
 
 
@@ -73,6 +68,11 @@ public class RegisterDataActivity extends AppCompatActivity implements View.OnCl
      */
     public void crearCuenta() {
         try {
+            registro = new APIRegistro( RegisterDataActivity.this ) {
+                @Override public void registroExitoso( APIRegistroModel usuario ) { viewRegistroExitoso( usuario ); }
+                @Override public void registroError( String error ) { viewRegistroError( error ); }
+            };
+
             String _mail = mail.getText().toString().trim();
             String _nombre = nombre.getText().toString().trim();
             String _password = password.getText().toString().trim();
