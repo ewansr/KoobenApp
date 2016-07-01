@@ -46,11 +46,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
 
-        setContentView( R.layout.activity_login );
-        setStatusColor( LoginActivity.this );
-
         FacebookSdk.sdkInitialize( getApplicationContext() );
         callbackManager = CallbackManager.Factory.create();
+        setContentView( R.layout.activity_login );
+        setStatusColor( LoginActivity.this );
 
         context = LoginActivity.this;
         btnLogin = (FancyButton) findViewById( R.id.btnLogin );
