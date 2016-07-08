@@ -1,11 +1,38 @@
 package com.ewansr.www.koobenapp;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+
 import org.json.JSONObject;
 
 /**
  * @author edmsamuel 22/06/16.
  */
 public class APIRegistro extends APIKoobenRequest {
+
+    public Context context;
+    public ProgressDialog progressDialog;
+
+
+
+    /**
+     * Metodo constructor
+     *
+     */
+    public APIRegistro( Context context ) {
+        this.context = context;
+    }
+
+
+    /**
+     * Ejecutado antes del doInBackground
+     *
+     *
+    */
+    @Override
+    protected void onPreExecute() {
+        progressDialog = ProgressDialog.show( context, "Creando su cuenta", "Por favor espere...", true, true );
+    }
 
 
     /**
@@ -29,7 +56,7 @@ public class APIRegistro extends APIKoobenRequest {
     public void KoobenRequestCompleted( JSONObject response ) {
         try {
             JSONObject status = response.getJSONObject( "status" );
-            Boolean existe = response.getBoolean( "exists" );
+            Boolean existe = status.getBoolean( "exists" );
             Boolean creado = status.getBoolean( "created" );
             Boolean valido = status.getBoolean( "valid" );
 
@@ -51,6 +78,10 @@ public class APIRegistro extends APIKoobenRequest {
 
         } catch ( Exception error ) {
             registroError( error.getMessage() );
+        }
+
+        if ( progressDialog.isShowing() ) {
+            progressDialog.dismiss();
         }
     }
 
@@ -80,8 +111,8 @@ public class APIRegistro extends APIKoobenRequest {
 
     /**
      * Llamado en caso que el registro no se haya completado.
-     * @param error
+     * @param error String Mensaje de error
      */
-    public void registroError(  String error ) {
+    public void registroError( String error ) {
     }
 }

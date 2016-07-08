@@ -40,6 +40,7 @@
         android:layout_above="@+id/btnCrearCuenta">
 
         <RelativeLayout
+            android:id="@+id/viewForm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -63,7 +64,7 @@
                 android:layout_height="45dp"
                 android:background="@drawable/register_password"
                 android:hint="Nombre(s)"
-                android:inputType="text"
+                android:inputType="textPersonName|text"
                 android:textColor="#000000"
                 android:textStyle="bold"
                 android:layout_below="@+id/tvLeyenda"
@@ -78,13 +79,13 @@
                 android:layout_height="45dp"
                 android:background="@drawable/register_password"
                 android:hint="Dirección de Correo Electrónico"
-                android:inputType="text"
                 android:textColor="#000000"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:layout_below="@+id/EdtNombre"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:inputType="textEmailAddress" />
 
             <EditText
                 android:id="@+id/EdtContrasena"
@@ -92,7 +93,7 @@
                 android:layout_height="45dp"
                 android:background="@drawable/register_password"
                 android:hint="Contraseña"
-                android:inputType="text"
+                android:inputType="textPassword|text|textVisiblePassword"
                 android:textColor="#000000"
                 android:textStyle="bold"
                 android:gravity="center"
@@ -106,7 +107,7 @@
                 android:layout_height="45dp"
                 android:background="@drawable/register_password"
                 android:hint="Confirmar Contraseña"
-                android:inputType="text"
+                android:inputType="textPassword|text|textVisiblePassword"
                 android:textColor="#000000"
                 android:textStyle="bold"
                 android:gravity="center"
