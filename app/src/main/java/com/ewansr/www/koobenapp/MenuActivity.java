@@ -131,12 +131,7 @@ public class MenuActivity extends AppCompatActivity
         /** Controlar los elementos del NavigationView al hacer click**/
         int id = item.getItemId();
 
-        if (id == R.id.nav_ciudad) {
-
-        }
-        else if (id == R.id.nav_metodopago) {
-
-        } else if (id == R.id.nav_cerrarsesion) {
+        if (id == R.id.nav_compras) {
 
         }
 

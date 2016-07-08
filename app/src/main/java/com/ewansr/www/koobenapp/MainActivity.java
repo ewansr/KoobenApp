@@ -1,8 +1,13 @@
 package com.ewansr.www.koobenapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -17,9 +22,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+
+import mehdi.sakout.fancybuttons.FancyButton;
 
 class SolicitudPrueba extends APIKoobenRequest {
 
@@ -45,22 +57,10 @@ class SolicitudPrueba extends APIKoobenRequest {
     }
 }
 
-public class MainActivity extends AppCompatActivity {
-
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     private ViewPager mViewPager;
+    private static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,34 +77,36 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+        context = MainActivity.this;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-                Intent i = new Intent(MainActivity.this, MenuActivity.class);
-                startActivity(i);
-            }
-        });
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.DrawerLayout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+////                        .setAction("Action", null).show();
+//                Intent i = new Intent(MainActivity.this, MenuActivity.class);
+//                startActivity(i);
+//            }
+//        });
 
-    }
-
+   }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -115,36 +117,34 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        /** Controlar los elementos del NavigationView al hacer click**/
+        int id = item.getItemId();
 
+        if (id == R.id.nav_compras) {
+
+        }
+
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.DrawerLayout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    public static class PlaceholderFragment extends Fragment /*implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener */{
+        /*static SliderLayout mDemoSlider;*/
+        private static final String ARG_SECTION_NUMBER = "section_number";
         public PlaceholderFragment() {
         }
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
@@ -157,17 +157,85 @@ public class MainActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+
+            FancyButton btnMas = (FancyButton) rootView.findViewById(R.id.btnMas);
+            btnMas.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view){
+                    Intent i = new Intent(context, MenuActivity.class);
+                    startActivity(i);
+                }
+            });
+
+
+/*
+            mDemoSlider = (SliderLayout)rootView.findViewById(R.id.slide_recipes);
+
+            HashMap<String,String> url_maps = new HashMap<String, String>();
+            url_maps.put("Hannibal", "http://static2.hypable.com/wp-content/uploads/2013/12/hannibal-season-2-release-date.jpg");
+            url_maps.put("Big Bang Theory", "http://tvfiles.alphacoders.com/100/hdclearart-10.png");
+            url_maps.put("House of Cards", "http://cdn3.nflximg.net/images/3093/2043093.jpg");
+            url_maps.put("Game of Thrones", "http://images.boomsbeat.com/data/images/full/19640/game-of-thrones-season-4-jpg.jpg");
+
+            HashMap<String,Integer> file_maps = new HashMap<String, Integer>();
+            file_maps.put("Hannibal",R.drawable.camarones_a_la_diabla);
+            file_maps.put("Big Bang Theory",R.drawable.camarones_a_la_diabla);
+            file_maps.put("House of Cards",R.drawable.camarones_a_la_diabla);
+            file_maps.put("Game of Thrones", R.drawable.camarones_a_la_diabla);
+
+            for(String name : file_maps.keySet()){
+                TextSliderView textSliderView = new TextSliderView(getContext());
+                // initialize a SliderLayout
+                textSliderView
+                        .description(name)
+                        .image(file_maps.get(name))
+                        .setScaleType(BaseSliderView.ScaleType.Fit)
+                        .setOnSliderClickListener(this);
+
+                //add your extra information
+                textSliderView.bundle(new Bundle());
+                textSliderView.getBundle()
+                        .putString("extra",name);
+
+                mDemoSlider.addSlider(textSliderView);
+            }
+            mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
+            mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+            mDemoSlider.setCustomAnimation(new DescriptionAnimation());
+            mDemoSlider.setDuration(4000);
+            mDemoSlider.addOnPageChangeListener(this);
+*/
             return rootView;
         }
+/*
+        @Override
+        public void onStop() {
+            // To prevent a memory leak on rotation, make sure to call stopAutoCycle() on the slider before activity or fragment is destroyed
+            mDemoSlider.stopAutoCycle();
+            super.onStop();
+        }
+
+        @Override
+        public void onSliderClick(BaseSliderView slider) {
+            Toast.makeText(getContext(), slider.getBundle().get("extra") + "", Toast.LENGTH_SHORT).show();
+        }
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+        @Override
+        public void onPageSelected(int position) {
+            Log.d("Slider Demo", "Page Changed: " + position);
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {}
+*/
+
     }
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+
+ class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
