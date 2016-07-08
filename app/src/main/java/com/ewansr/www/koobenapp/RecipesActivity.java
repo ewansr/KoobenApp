@@ -110,14 +110,10 @@ public class RecipesActivity extends AppCompatActivity implements NavigationView
         /** Controlar los elementos del NavigationView al hacer click**/
         int id = item.getItemId();
 
-        if (id == R.id.nav_ciudad) {
+        if (id == R.id.nav_compras) {
 
         }
-        else if (id == R.id.nav_metodopago) {
 
-        } else if (id == R.id.nav_cerrarsesion) {
-
-        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.DrawerLayout);
         drawer.closeDrawer(GravityCompat.START);
@@ -156,7 +152,7 @@ public class RecipesActivity extends AppCompatActivity implements NavigationView
 
             rv = (RecyclerView)rootView.findViewById(R.id.rv);
             rv.setHasFixedSize(true);
-            llm = new StaggeredGridLayoutManager (2, 1);
+            llm = new StaggeredGridLayoutManager (1, 1);
             rv.setLayoutManager(llm);
 
             rv.addOnScrollListener(new RecyclerView.OnScrollListener() {

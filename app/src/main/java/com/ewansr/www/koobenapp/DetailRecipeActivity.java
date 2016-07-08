@@ -36,7 +36,7 @@ public class DetailRecipeActivity extends AppCompatActivity {
 
         TextView tvIngredientes = (TextView) findViewById(R.id.tvlistaIngredientes);
         TextView tvPreparacion = (TextView) findViewById(R.id.tvMetodoPreparacion);
-        TextView tvNombreReceta = (TextView) findViewById(R.id.tvTitulo);
+        TextView tvNombreReceta = (TextView) findViewById(R.id.tvTituloReceta);
         tvPreparacion.setText(nombreReceta);
         tvNombreReceta.setText(preparacion);
 
