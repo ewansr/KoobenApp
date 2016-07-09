@@ -3,8 +3,6 @@ package com.ewansr.www.koobenapp;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -27,8 +25,6 @@ import com.facebook.login.widget.LoginButton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Arrays;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -143,7 +139,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String UrlImgProfile = "https://graph.facebook.com/" + id + "/picture?width=200&height=150";
         bundle.putString("profile_pic", UrlImgProfile);
         LoadRemoteImg rimg = new LoadRemoteImg(imgProfile);
-        rimg.execute(UrlImgProfile);
+        rimg.execute( UrlImgProfile );
 
         // Lo siguiente está de más explicarlo con manzanas
         bundle.putString("idFacebook", id);
@@ -198,7 +194,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      * Llamdo al ocurrir un error en la autenticación
      *
      */
-    public void loginAautenticacionFallida() {
+    public void loginAutenticacionFallida() {
         AlertDialog.Builder builder = new AlertDialog.Builder( LoginActivity.this );
         builder
             .setTitle( "Error de autenticación" )
@@ -231,7 +227,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                     @Override
                     public void autenticacionFallida() {
-                        loginAautenticacionFallida();
+                        loginAutenticacionFallida();
                     }
                 };
                 autenticacion.autenticar(mail.getText().toString(), password.getText().toString());

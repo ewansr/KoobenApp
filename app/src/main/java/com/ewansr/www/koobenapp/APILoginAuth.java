@@ -70,7 +70,7 @@ public class APILoginAuth extends APIKoobenRequest implements APILoginAuthInterf
                 autenticacionFallida();
             }
         } catch ( Exception e ) {
-            Log.e( this.getClass().toString(), e.getMessage() );
+            KoobenRequestError( e );
         }
     }
 
