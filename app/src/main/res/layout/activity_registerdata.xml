@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+    </android.support.v7.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/logo_kooben"
+        android:src="@drawable/logo_kooben"
+        android:layout_below="@+id/toolbar"
+        android:layout_alignLeft="@+id/scrollView"
+        android:layout_alignStart="@+id/scrollView"
+        android:layout_marginTop="15dp" />
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_below="@+id/tvRegistro"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_above="@+id/btnCrearCuenta">
+
+        <RelativeLayout
+            android:id="@+id/viewForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvLeyenda"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Capture sus datos para la creación de su cuenta:"
+                android:textSize="19dp"
+                android:typeface="monospace"
+                android:textColor="@color/color_Negro_transparente"
+                android:fontFamily="sans-serif"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="15dp" />
+
+            <EditText
+                android:id="@+id/EdtNombre"
+                android:layout_width="fill_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/register_password"
+                android:hint="Nombre(s)"
+                android:inputType="textPersonName|text"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:layout_below="@+id/tvLeyenda"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="15dp"
+                android:gravity="center" />
+
+            <EditText
+                android:id="@+id/EdtEmail"
+                android:layout_width="fill_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/register_password"
+                android:hint="Dirección de Correo Electrónico"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_below="@+id/EdtNombre"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/EdtContrasena"
+                android:layout_width="fill_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/register_password"
+                android:hint="Contraseña"
+                android:inputType="textPassword|text|textVisiblePassword"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_below="@+id/EdtEmail"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <EditText
+                android:id="@+id/EdtConfirmar"
+                android:layout_width="fill_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/register_password"
+                android:hint="Confirmar Contraseña"
+                android:inputType="textPassword|text|textVisiblePassword"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_below="@+id/EdtContrasena"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <mehdi.sakout.fancybuttons.FancyButton
+        android:id="@+id/btnCrearCuenta"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        fancy:fb_fontIconSize="42dp"
+        fancy:fb_borderWidth="1dp"
+        fancy:fb_defaultColor="@color/color_primario_cyan"
+        fancy:fb_focusColor="#9bd823"
+        fancy:fb_iconPosition="left"
+        fancy:fb_radius="30dp"
+        fancy:fb_text="Crear Cuenta"
+        fancy:fb_textColor="#FFFFFF"
+        fancy:fb_textSize="20sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/scrollView"
+        android:layout_alignEnd="@+id/scrollView"
+        android:layout_alignLeft="@+id/scrollView"
+        android:layout_alignStart="@+id/scrollView"
+        android:layout_marginBottom="15dp" />
+
+    <TextView
+        android:id="@+id/tvRegistro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Registro"
+        android:textSize="32dp"
+        android:typeface="monospace"
+        android:textAlignment="center"
+        android:textColor="@color/color_primario_cyan"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/imgLogo"
+        android:layout_toEndOf="@+id/imgLogo"
+        android:layout_alignBottom="@+id/imgLogo"
+        android:layout_alignTop="@+id/imgLogo" />
+
+</RelativeLayout>

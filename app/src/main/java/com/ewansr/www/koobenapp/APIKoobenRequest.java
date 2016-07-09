@@ -49,6 +49,7 @@ public abstract class APIKoobenRequest extends AsyncTask<String, Void, JSONObjec
         response_text = "";
 
         try {
+            Log.i( "KoobenRequest", "Preparando solicitud `" + getRequestMethod() + "` a `" + params[0] + "`" );
             InputStream inputStream;
             String line;
             String body;
@@ -70,6 +71,9 @@ public abstract class APIKoobenRequest extends AsyncTask<String, Void, JSONObjec
                 body = datos.toString();
                 content_bytes = body.getBytes();
                 content_length = content_bytes.length;
+
+                // debug
+                Log.i( "KoobenRequest", "Adjuntando a la solicitud `" + body + "`" );
 
                 // establecer headers.
                 url_connection.setRequestProperty( "Content-Type", "application/json" );
@@ -126,8 +130,10 @@ public abstract class APIKoobenRequest extends AsyncTask<String, Void, JSONObjec
     @Override
     protected void onPostExecute( JSONObject resultado ) {
         if ( !hasErrors ) {
+            Log.i( "KoobenRequest", "Solicitud completada con resultado `" + resultado.toString() + "`" );
             KoobenRequestCompleted( resultado );
         } else {
+            Log.e( "KoobenRequest", "Error en la solicitud `" + error.getMessage() + "`" );
             KoobenRequestError( error );
         }
     }
@@ -225,6 +231,7 @@ public abstract class APIKoobenRequest extends AsyncTask<String, Void, JSONObjec
      * @return String
      */
     private String prepareUrl( String path ) {
+        //String API_BASE_URL = "http://192.168.1.66/Repositories/Kooben-CocinaComparte/API";
         String API_BASE_URL = "https://www.inteli-code.com.mx/CocinaComparte/API";
         return API_BASE_URL + path;
     }
@@ -261,9 +268,9 @@ public abstract class APIKoobenRequest extends AsyncTask<String, Void, JSONObjec
     /**
      * Es invocado al finalizar la tarea en segundo plano cuando no han ocurrido errores en la solicitud HTTP.
      *
-     * @param result JSONObject Resultado recibido por el servidor en JSON.
+     * @param response JSONObject Resultado recibido por el servidor en JSON.
      */
-    public abstract void KoobenRequestCompleted( JSONObject result );
+    public abstract void KoobenRequestCompleted( JSONObject response );
 
 
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:descendantFocusability="beforeDescendants"
@@ -17,11 +18,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/color_primario_cyan"
-        android:padding="25dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/imgLogo">
+        android:layout_below="@+id/imgLogo"
+        android:paddingLeft="25dp"
+        android:paddingTop="25dp"
+        android:paddingRight="25dp"
+        android:paddingBottom="0dp">
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -55,17 +59,6 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
-            <Button
-                android:id="@+id/btnLogin"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/edtContrasena"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="25dp"
-                android:background="@color/color_amarillo"
-                android:text="Iniciar Sesión"
-                android:textColor="#ffffff"
-                android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/tv_forgotpassword"
@@ -76,11 +69,73 @@
                 android:textStyle="bold"
                 android:typeface="monospace"
                 android:textAlignment="center"
+                android:textColor="@color/color_Blanco"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
+                android:layout_below="@+id/btnLoginFb"
+                android:layout_marginTop="15dp" />
+
+            <mehdi.sakout.fancybuttons.FancyButton
+                android:id="@+id/btnLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
+                fancy:fb_borderWidth="1dp"
+                fancy:fb_defaultColor="@color/color_amarillo"
+                fancy:fb_focusColor="#9bd823"
+                fancy:fb_iconPosition="left"
+                fancy:fb_radius="30dp"
+                fancy:fb_text="Iniciar Sesión"
+                fancy:fb_textColor="#FFFFFF"
+                fancy:fb_textSize="20sp"
+                android:layout_below="@+id/edtContrasena"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="20dp" />
+
+            <mehdi.sakout.fancybuttons.FancyButton
+                android:id="@+id/btnLoginFb"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
+                fancy:fb_fontIconSize="42dp"
+                fancy:fb_borderWidth="1dp"
+                fancy:fb_defaultColor="@color/color_fb"
+                fancy:fb_focusColor="#9bd823"
+                fancy:fb_iconPosition="left"
+                fancy:fb_radius="30dp"
+                fancy:fb_text="Iniciar con Facebook"
+                fancy:fb_textColor="#FFFFFF"
+                fancy:fb_textSize="20sp"
                 android:layout_below="@+id/btnLogin"
-                android:layout_marginTop="15dp"
-                android:textColor="@color/color_Blanco" />
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="5dp" />
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/facebookLoginButton"
+                android:layout_height="45dp"
+                android:layout_width="wrap_content"
+                android:layout_below="@+id/btnLoginFb"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="5dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp" />
 
         </RelativeLayout>
     </ScrollView>

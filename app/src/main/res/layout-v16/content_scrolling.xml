@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tvTitulo"
+            android:id="@+id/tvTituloReceta"
             android:text="Nombre Receta"
             android:textColor="@color/color_primario_cyan"
             android:textSize="24dp"
@@ -36,11 +36,11 @@
             android:textColor="@color/darkorange"
             android:textSize="18dp"
             android:textStyle="bold"
-            android:layout_alignLeft="@+id/tvTitulo"
-            android:layout_alignStart="@+id/tvTitulo"
-            android:layout_below="@+id/tvTitulo"
-            android:layout_alignRight="@+id/tvTitulo"
-            android:layout_alignEnd="@+id/tvTitulo" />
+            android:layout_alignLeft="@+id/tvTituloReceta"
+            android:layout_alignStart="@+id/tvTituloReceta"
+            android:layout_below="@+id/tvTituloReceta"
+            android:layout_alignRight="@+id/tvTituloReceta"
+            android:layout_alignEnd="@+id/tvTituloReceta" />
 
         <TextView
             android:layout_width="wrap_content"

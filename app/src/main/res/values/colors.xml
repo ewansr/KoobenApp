@@ -12,6 +12,8 @@
     <color name="color_verde">#429e46</color>
     <color name="color_rojo">#d94235</color>
     <color name="color_crema">#e9e9e7</color>
+    <color name="color_fb">#405897</color>
+    <color name="color_google_plus">#c54a30</color>
 
     <!--Aplica para:-->
     <!--Barra de Título, Barra de acción rápida, flechas de colores de Listview-->
@@ -24,7 +26,8 @@
     <!--<color name="color_azulrey">#f7da5b</color>-->
 
 
-    <color name="color_Negro_transparente">#87000000</color>
+    <color name="color_Negro_transparente">#83000000</color>
+    <color name="color_Negroclaro_transparente">#00000000</color>
     <color name="color_Blanco">#ffffff</color>
     <color name="color_Negro">#000000</color>
 
