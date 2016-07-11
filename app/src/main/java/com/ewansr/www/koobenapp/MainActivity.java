@@ -34,29 +34,29 @@ import java.util.HashMap;
 
 import mehdi.sakout.fancybuttons.FancyButton;
 
-class SolicitudPrueba extends APIKoobenRequest {
-
-    @Override
-    public void KoobenRequestCompleted( JSONObject result ) {
-        try {
-            if ( this.tipo == APIKoobenRequestType.GET ) {
-                JSONArray items = result.getJSONArray( "items" );
-                for( int index = 0; index < items.length(); index++ ) {
-                    Log.d( "edmsamuel", items.getJSONObject( index ).toString() );
-                }
-            } else {
-                Log.d( "edmsamuel", result.getString( "resultado" ) );
-            }
-        } catch ( Exception error ) {
-            Log.e( "edmsamuel", error.getMessage() );
-        }
-    }
-
-    @Override
-    public void KoobenRequestError(Exception error) {
-        this.printError();
-    }
-}
+//class SolicitudPrueba extends APIKoobenRequest {
+//
+//    @Override
+//    public void KoobenRequestCompleted( JSONObject result ) {
+//        try {
+//            if ( this.tipo == APIKoobenRequestType.GET ) {
+//                JSONArray items = result.getJSONArray( "items" );
+//                for( int index = 0; index < items.length(); index++ ) {
+//                    Log.d( "edmsamuel", items.getJSONObject( index ).toString() );
+//                }
+//            } else {
+//                Log.d( "edmsamuel", result.getString( "resultado" ) );
+//            }
+//        } catch ( Exception error ) {
+//            Log.e( "edmsamuel", error.getMessage() );
+//        }
+//    }
+//
+//    @Override
+//    public void KoobenRequestError(Exception error) {
+//        this.printError();
+//    }
+//}
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -79,16 +79,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        try {
-            SolicitudPrueba prueba = new SolicitudPrueba();
-            JSONObject datos = new JSONObject();
-            datos.put( "x", 5 );
-            datos.put( "y", 7 );
-            prueba.post( "/sum", datos );
-        } catch ( Exception e ){
-
-        }
+//
+//        try {
+//            SolicitudPrueba prueba = new SolicitudPrueba();
+//            JSONObject datos = new JSONObject();
+//            datos.put( "x", 5 );
+//            datos.put( "y", 7 );
+//            prueba.post( "/sum", datos );
+//        } catch ( Exception e ){
+//
+//        }
 
         context = MainActivity.this;
 

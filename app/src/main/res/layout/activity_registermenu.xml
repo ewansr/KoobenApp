@@ -18,30 +18,6 @@
     </android.support.v7.widget.Toolbar>
 
 
-    <mehdi.sakout.fancybuttons.FancyButton
-        android:id="@+id/btnRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:paddingBottom="10dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="10dp"
-        fancy:fb_borderWidth="1dp"
-        fancy:fb_defaultColor="@color/color_primario_cyan"
-        fancy:fb_focusColor="#9bd823"
-        fancy:fb_iconPosition="left"
-        fancy:fb_radius="30dp"
-        fancy:fb_text="Registrarse con Formulario"
-        fancy:fb_textColor="#FFFFFF"
-        fancy:fb_textSize="18sp"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp" />
 
 
 
@@ -69,50 +45,36 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp" />
 
-    <mehdi.sakout.fancybuttons.FancyButton
-        android:id="@+id/btnFacebook"
-        android:layout_width="wrap_content"
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/btnFacebookLogin"
         android:layout_height="45dp"
-        android:paddingBottom="10dp"
+        android:layout_width="wrap_content"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp"
         android:paddingTop="10dp"
-        fancy:fb_borderWidth="1dp"
-        fancy:fb_defaultColor="@color/color_fb"
-        fancy:fb_focusColor="#9bd823"
-        fancy:fb_iconPosition="left"
-        fancy:fb_radius="30dp"
-        fancy:fb_text="Regístrate con Facebook"
-        fancy:fb_textColor="#FFFFFF"
-        fancy:fb_textSize="18sp"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/btnRegister"
-        android:layout_alignRight="@+id/btnRegister"
-        android:layout_alignEnd="@+id/btnRegister"
-        android:layout_alignLeft="@+id/btnRegister"
-        android:layout_alignStart="@+id/btnRegister" />
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp"
+        android:text="Ingresa con Facebook"
+        android:layout_below="@+id/btnCrearCuenta"
+        android:layout_alignLeft="@+id/btnCrearCuenta"
+        android:layout_alignStart="@+id/btnCrearCuenta"
+        android:layout_alignRight="@+id/btnCrearCuenta"
+        android:layout_alignEnd="@+id/btnCrearCuenta"
+        android:layout_marginTop="5dp" />
 
-    <mehdi.sakout.fancybuttons.FancyButton
-        android:id="@+id/btnGoogle"
+    <Button
         android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:paddingBottom="10dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="10dp"
-        fancy:fb_borderWidth="1dp"
-        fancy:fb_defaultColor="@color/color_google_plus"
-        fancy:fb_focusColor="#9bd823"
-        fancy:fb_iconPosition="left"
-        fancy:fb_radius="30dp"
-        fancy:fb_text="Regístrate con Google"
-        fancy:fb_textColor="#FFFFFF"
-        fancy:fb_textSize="18sp"
-        android:layout_below="@+id/btnFacebook"
-        android:layout_alignLeft="@+id/btnFacebook"
-        android:layout_alignStart="@+id/btnFacebook"
-        android:layout_marginTop="5dp"
-        android:layout_alignRight="@+id/btnFacebook"
-        android:layout_alignEnd="@+id/btnFacebook" />
+        android:layout_height="38dp"
+        android:text="Registrarse con formulario"
+        android:id="@+id/btnCrearCuenta"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="15dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="15dp"
+        android:background="@color/color_primario_cyan"
+        android:textColor="@color/color_Blanco" />
 
 </RelativeLayout>
