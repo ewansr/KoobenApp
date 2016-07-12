@@ -10,8 +10,13 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+
 import org.json.JSONObject;
 import mehdi.sakout.fancybuttons.FancyButton;
 import static com.ewansr.www.koobenapp.cUtils.setStatusColor;
@@ -26,12 +31,15 @@ public class RegisterDataActivity extends AppCompatActivity implements View.OnCl
     private EditText password;
     private EditText confirmacion;
     private Toolbar toolbar;
-    private FancyButton btnLogin;
+    private Button btnLogin;
     private RelativeLayout viewForm;
     private APIRegistro registro;
+    private String fbUserID;
+    private String fb_last_name;
 
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
+
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_registerdata );
 
@@ -40,7 +48,7 @@ public class RegisterDataActivity extends AppCompatActivity implements View.OnCl
         password = (EditText) findViewById( R.id.EdtContrasena );
         confirmacion = (EditText) findViewById( R.id.EdtConfirmar );
         toolbar = (Toolbar) findViewById( R.id.toolbar );
-        btnLogin = (FancyButton) findViewById( R.id.btnCrearCuenta );
+        btnLogin = (Button) findViewById( R.id.btnCrearCuenta );
         viewForm = (RelativeLayout) findViewById( R.id.viewForm );
 
         setSupportActionBar( toolbar );
@@ -50,6 +58,17 @@ public class RegisterDataActivity extends AppCompatActivity implements View.OnCl
         setStatusColor( RegisterDataActivity.this );
         btnLogin.setOnClickListener( this );
         toolbar.setNavigationOnClickListener( this );
+
+        fbUserID = "";
+        fb_last_name = "";
+
+        Bundle b = getIntent().getExtras();
+        if (b != null){
+            fbUserID     = b.getString("id");
+            fb_last_name = b.getString("last_name");
+            mail.setText(b.getString("email"));
+            nombre.setText(b.getString("first_name"));
+        }
     }
 
 
@@ -68,9 +87,16 @@ public class RegisterDataActivity extends AppCompatActivity implements View.OnCl
      */
     public void crearCuenta() {
         try {
-            registro = new APIRegistro( RegisterDataActivity.this ) {
-                @Override public void registroExitoso( APIRegistroModel usuario ) { viewRegistroExitoso( usuario ); }
-                @Override public void registroError( String error ) { viewRegistroError( error ); }
+            registro = new APIRegistro(RegisterDataActivity.this) {
+                @Override
+                public void registroExitoso(APIRegistroModel usuario) {
+                    viewRegistroExitoso(usuario);
+                }
+
+                @Override
+                public void registroError(String error) {
+                    viewRegistroError(error);
+                }
             };
 
             String _mail = mail.getText().toString().trim();
@@ -78,26 +104,29 @@ public class RegisterDataActivity extends AppCompatActivity implements View.OnCl
             String _password = password.getText().toString().trim();
             String _confirmacion = confirmacion.getText().toString().trim();
             String form = _mail + _nombre + _password + _confirmacion;
-            viewForm.setEnabled( false );
+            viewForm.setEnabled(false);
 
-            if ( form.isEmpty() ) {
-                throw new Exception( "FORM" );
+            if (form.isEmpty()) {
+                throw new Exception("FORM");
             }
 
-            if ( !Patterns.EMAIL_ADDRESS.matcher( _mail ).matches() ) {
-                throw new Exception( "MAIL" );
+            if (!Patterns.EMAIL_ADDRESS.matcher(_mail).matches()) {
+                throw new Exception("MAIL");
             }
 
-            if ( !( _confirmacion.equals( _password ) ) ) {
-                throw new Exception( "PASS" );
+            if (!(_confirmacion.equals(_password))) {
+                throw new Exception("PASS");
             }
 
             JSONObject usuario = new JSONObject();
+
+            // Operador culeario(ternario)
+            usuario.put( "sImg", (!fbUserID.isEmpty()?"https://graph.facebook.com/" + fbUserID + "/picture?type=large":""));
             usuario.put( "sMail", _mail );
             usuario.put( "sIdUsuario", _mail );
             usuario.put( "sPassword", _password );
             usuario.put( "sNombre", _nombre );
-            usuario.put( "sApellidos", " " );
+            usuario.put( "sApellidos", fb_last_name );
             usuario.put( "sTipo", "user" );
 
             registro.registrar( usuario );
@@ -154,7 +183,7 @@ public class RegisterDataActivity extends AppCompatActivity implements View.OnCl
      * Llamado si el registro fue exitoso
      */
     public void viewRegistroExitoso( APIRegistroModel usuario ) {
-        Intent i = new Intent(RegisterDataActivity.this, MainActivity.class);
+        Intent i = new Intent(RegisterDataActivity.this, MenuActivity.class);
         startActivity(i);
     }
 

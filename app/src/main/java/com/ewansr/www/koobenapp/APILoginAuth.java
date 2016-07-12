@@ -21,9 +21,28 @@ public class APILoginAuth extends APIKoobenRequest implements APILoginAuthInterf
             JSONObject datos = new JSONObject();
             datos.put( "mail", mail );
             datos.put( "password", password );
+            headers.clear();
             headers.add( "KOOBEN APPLICATION NAME", "android" );
             post( "/auth", datos );
         } catch ( Exception e ) {}
+    }
+
+
+
+    public void autenticarConFacebook( String mail, String token ) {
+        try {
+            JSONObject usuario = new JSONObject();
+            usuario.put( "mail", mail );
+            usuario.put( "oauth", "facebook" );
+            usuario.put( "updateToken", "true" );
+            usuario.put( "token", token );
+            headers.clear();
+            headers.add( "KOOBEN-APPLICATION-NAME", "android" );
+            post( "/auth", usuario );
+
+        } catch ( Exception error ) {
+            Log.e( "edmsamuel", error.getMessage() );
+        }
     }
 
 
@@ -51,7 +70,7 @@ public class APILoginAuth extends APIKoobenRequest implements APILoginAuthInterf
                 autenticacionFallida();
             }
         } catch ( Exception e ) {
-            Log.e( this.getClass().toString(), e.getMessage() );
+            KoobenRequestError( e );
         }
     }
 
@@ -63,6 +82,7 @@ public class APILoginAuth extends APIKoobenRequest implements APILoginAuthInterf
      */
     @Override public void KoobenRequestError( Exception error ) {
         printError();
+        autenticacionFallida();
     }
 
 

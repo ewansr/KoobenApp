@@ -152,7 +152,7 @@ public class RecipesActivity extends AppCompatActivity implements NavigationView
 
             rv = (RecyclerView)rootView.findViewById(R.id.rv);
             rv.setHasFixedSize(true);
-            llm = new StaggeredGridLayoutManager (1, 1);
+            llm = new StaggeredGridLayoutManager (2, 1);
             rv.setLayoutManager(llm);
 
             rv.addOnScrollListener(new RecyclerView.OnScrollListener() {

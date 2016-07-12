@@ -31,7 +31,10 @@ public class APIRegistro extends APIKoobenRequest {
     */
     @Override
     protected void onPreExecute() {
-        progressDialog = ProgressDialog.show( context, "Creando su cuenta", "Por favor espere...", true, true );
+        progressDialog = new ProgressDialog( context );
+        progressDialog.setTitle( "Creando su cuenta" );
+        progressDialog.setMessage( "Por favor espere..." );
+        progressDialog.show();
     }
 
 
