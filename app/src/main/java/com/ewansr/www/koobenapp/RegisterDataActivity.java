@@ -60,7 +60,7 @@ public class RegisterDataActivity extends AppCompatActivity implements View.OnCl
         toolbar.setNavigationOnClickListener( this );
 
         fbUserID = "";
-        fb_last_name = "";
+        fb_last_name = " ";
 
         Bundle b = getIntent().getExtras();
         if (b != null){
