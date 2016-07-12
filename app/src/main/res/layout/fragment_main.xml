@@ -56,7 +56,7 @@
         android:textColor="@color/color_primario_cyan"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_below="@+id/slide_recipes"
+
         android:layout_alignLeft="@+id/viewDetailScrolling"
         android:layout_alignStart="@+id/viewDetailScrolling" />
 

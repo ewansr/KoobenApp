@@ -43,8 +43,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private CallbackManager callbackManager;
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+
+    @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
 
         FacebookSdk.sdkInitialize( getApplicationContext() );
@@ -65,16 +65,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         tvRegister.setOnClickListener( this );
 
         // Si ya tiene token activo lanzar la activity principal
-        if (AccessToken.getCurrentAccessToken() != null) {
+        if ( AccessToken.getCurrentAccessToken() != null) {
             final String accessToken = AccessToken.getCurrentAccessToken().getToken();
 
-            APIFacebook objAF = new APIFacebook(){
-                @Override
-                public Bundle SuccessAuth() {
-                    Bundle b = super.SuccessAuth();
-                    LoginFB(b.getString("email"), accessToken);
-
-                    return b;
+            APIFacebook objAF = new APIFacebook() {
+                @Override public void SuccessAuth( Bundle datos ) {
+                    LoginFB( datos.getString("email"), accessToken );
                 }
             };
             final GraphRequest request = objAF.getDataFb(AccessToken.getCurrentAccessToken(), accessToken, imgFB);
@@ -85,9 +81,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
         facebookLogin.setReadPermissions( Arrays.asList("email") );
-        facebookLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
+        facebookLogin.registerCallback( callbackManager, new FacebookCallback<LoginResult>() {
+            @Override public void onSuccess(LoginResult loginResult) {
                 Log.i( "edmsamuel", "Login con Facebook exitoso." );
                 ProgressDialog progressDialog = null;
 
@@ -108,11 +103,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         final String at = AccessToken.getCurrentAccessToken().getToken();
 
                         APIFacebook objAF = new APIFacebook() {
-                            @Override
-                            public Bundle SuccessAuth() {
-                                Bundle b = super.SuccessAuth();
-                                LoginFB(b.getString("email"), at);
-                                return b;
+                            @Override public void SuccessAuth( Bundle datos ) {
+                                LoginFB(datos.getString("email"), at);
                             }
                         };
 
@@ -123,34 +115,37 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         request.executeAsync();
                     }
 
-                }finally{
+                } finally {
                     if (progressDialog.isShowing()){
                         progressDialog.dismiss();
                     }
                 }
-        }
+            }
 
-        @Override
-        public void onCancel() {
-            Log.i( "edmsamuel", "Login con Facebook cancelado" );
-        }
+            @Override public void onCancel() {
+                Log.i( "edmsamuel", "Login con Facebook cancelado" );
+            }
 
-        @Override
-        public void onError(FacebookException exception) {
-            System.out.println("onError");
-            Log.v("LoginActivity", exception.getCause().toString());
-        }
-    });
+            @Override public void onError(FacebookException exception) {
+                System.out.println("onError");
+                Log.v("LoginActivity", exception.getCause().toString());
+            }
+        });
     }
+
+
 
     /**
      * Limpia los campos del formulario
      */
     // No me digassssssssssssssssss
+    // si te digooooo
     public void clearForm() {
         mail.setText( "" );
         password.setText( "" );
     }
+
+
 
     /**
      * Llamado en caso que la autenticación sea exitosa.
@@ -168,6 +163,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         startActivity(i);
     }
 
+
+
     /**
      * Llamdo al ocurrir un error en la autenticación
      *
@@ -183,15 +180,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
+
     /**
      * Llamado al ocurrir un evento de click a un elemento en la vista.
      *
      * @param target View Elemento en la vista al que se dió click.
      */
-    @Override
-    public void onClick( View target ) {
+    @Override public void onClick( View target ) {
 
-        // en caso que el objetivo del `click` del usuario sea el botón de logueo
         if ( target.getId() == R.id.btnLogin ) {
             ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
             progressDialog.setMessage("Procesando datos...");
@@ -209,7 +205,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                 };
                 autenticacion.autenticar(mail.getText().toString(), password.getText().toString());
-            }finally {
+            } finally {
                 if (progressDialog.isShowing()) {
                     progressDialog.dismiss();
                 }
@@ -222,22 +218,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    @Override
-    protected void onActivityResult( int requestCode, int resultCode, Intent data ) {
+
+
+    @Override protected void onActivityResult( int requestCode, int resultCode, Intent data ) {
         super.onActivityResult( requestCode, resultCode, data );
         callbackManager.onActivityResult( requestCode, resultCode, data );
     }
 
+
+
     private void LoginFB(String emailFb, String finalAccessToken){
         // Login con API de don twichy
         APILoginAuth autenticacion = new APILoginAuth() {
-            @Override
-            public void autenticacionExitosa(APILoginAuthModel usuario) {
+            @Override public void autenticacionExitosa(APILoginAuthModel usuario) {
                 loginAutenticacionExitosa(usuario);
             }
 
-            @Override
-            public void autenticacionFallida() {
+            @Override public void autenticacionFallida() {
                 loginAutenticacionFallida();
             }
         };

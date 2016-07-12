@@ -73,11 +73,8 @@ public class RegisterMenuActivity extends AppCompatActivity {
                         final String at = AccessToken.getCurrentAccessToken().getToken();
 
                         APIFacebook aFB = new APIFacebook() {
-                            @Override
-                            public Bundle SuccessAuth() {
-                                Bundle b = super.SuccessAuth();
-                                openForm(b);
-                                return b;
+                            @Override public void SuccessAuth( Bundle datos ) {
+                                openForm( datos );
                             }
                         };
 
@@ -95,13 +92,11 @@ public class RegisterMenuActivity extends AppCompatActivity {
                 }
             }
 
-            @Override
-            public void onCancel() {
+            @Override public void onCancel() {
                 Log.i( "edmsamuel", "Login con Facebook cancelado" );
             }
 
-            @Override
-            public void onError(FacebookException exception) {
+            @Override public void onError(FacebookException exception) {
                 System.out.println("onError");
                 Log.v("LoginActivity", exception.getCause().toString());
             }

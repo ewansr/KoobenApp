@@ -34,15 +34,15 @@ public class APIFacebook {
                 Log.i("LoginActivity", response.toString());
                 // Obtener datos de facebook
                 bFacebookData = getFacebookData(object, imgFB);
-                SuccessAuth();
+                SuccessAuth( bFacebookData );
             }
         });
         return request;
     }
 
 
-    public Bundle SuccessAuth(){
-        return bFacebookData;
+    public void SuccessAuth( Bundle datos ){
+
     }
 
 
