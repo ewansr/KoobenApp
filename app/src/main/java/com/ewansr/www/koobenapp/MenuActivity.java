@@ -26,6 +26,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.facebook.login.LoginManager;
+
 import java.net.URL;
 
 public class MenuActivity extends AppCompatActivity
@@ -115,7 +117,11 @@ public class MenuActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_logout) {
+            LoginManager.getInstance().logOut();
+            Intent i = new Intent(mainContext, LoginActivity.class);
+            startActivity(i);
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);

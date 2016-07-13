@@ -3,6 +3,7 @@ package com.ewansr.www.koobenapp;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -19,6 +20,7 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import java.util.Arrays;
@@ -69,8 +71,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             final String accessToken = AccessToken.getCurrentAccessToken().getToken();
 
             APIFacebook objAF = new APIFacebook() {
-                @Override public void SuccessAuth( Bundle datos ) {
-                    LoginFB( datos.getString("email"), accessToken );
+                @Override
+                public void SuccessAuth( Bundle datos ) {
+                    ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
+                    progressDialog.setMessage("Leyendo sesión activa...");
+                    progressDialog.show();
+
+                    String email = null;
+                    if ( datos.getString("email") == null ){
+                        email = datos.getString("idFacebook") + "@facebook.com";
+                    } else{ email = datos.getString("email"); }
+                    LoginFB( email , accessToken );
+//                    if ( progressDialog.isShowing() ){progressDialog.dismiss();}
                 }
             };
             final GraphRequest request = objAF.getDataFb(AccessToken.getCurrentAccessToken(), accessToken, imgFB);
@@ -103,8 +115,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         final String at = AccessToken.getCurrentAccessToken().getToken();
 
                         APIFacebook objAF = new APIFacebook() {
-                            @Override public void SuccessAuth( Bundle datos ) {
-                                LoginFB(datos.getString("email"), at);
+                            @Override
+                            public void SuccessAuth( Bundle datos ) {
+                                String email = null;
+                                if ( datos.getString("email") == null ){
+                                    email = datos.getString("idFacebook") + "@facebook.com";
+                                } else{ email = datos.getString("email"); }
+                                LoginFB( email , at );
                             }
                         };
 
@@ -116,9 +133,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
 
                 } finally {
-                    if (progressDialog.isShowing()){
-                        progressDialog.dismiss();
-                    }
+//                    if (progressDialog.isShowing()){
+//                        progressDialog.dismiss();
+//                    }
                 }
             }
 
@@ -160,7 +177,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .create()
                 .show();
         Intent i = new Intent(LoginActivity.this, MenuActivity.class);
+        //i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(i);
+        finish();
     }
 
 
@@ -179,6 +198,36 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         clearForm();
     }
 
+    /**
+     * Llamdo al ocurrir un error en la autenticación al no tener cuenta con fb
+     *
+     */
+    public void loginAutenticacionFallidaFB() {
+        LoginManager.getInstance().logOut();
+        AlertDialog.Builder builder = new AlertDialog.Builder( LoginActivity.this );
+        builder
+                .setTitle( "Error de autenticación" )
+                .setMessage( "Al parecer aun no te has registrado para acceder a nuestra aplicación.¿Deseas registrarte?" )
+                .setPositiveButton("Si", new DialogInterface.OnClickListener()  {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Log.i("Dialogos", "Confirmacion Aceptada.");
+                        Intent i = new Intent(context, RegisterMenuActivity.class);
+                        Log.i("Activity", "Abriendo Menu de selecció de registro");
+                        //i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                        startActivity(i);
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Log.i("Dialogos", "Confirmacion Cancelada.");
+                        dialog.cancel();
+                    }
+                })
+                .create()
+                .show();
+        clearForm();
+    }
 
 
     /**
@@ -190,7 +239,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if ( target.getId() == R.id.btnLogin ) {
             ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
-            progressDialog.setMessage("Procesando datos...");
+            progressDialog.setMessage("Iniciando sesión...");
             progressDialog.show();
             try {
                 APILoginAuth autenticacion = new APILoginAuth() {
@@ -214,6 +263,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if ( target.getId() == R.id.tvRegister ) {
             Intent i = new Intent(context, RegisterMenuActivity.class);
+            //i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
             startActivity(i);
         }
     }
@@ -235,7 +285,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
 
             @Override public void autenticacionFallida() {
-                loginAutenticacionFallida();
+                loginAutenticacionFallidaFB();
             }
         };
         autenticacion.autenticarConFacebook(emailFb, finalAccessToken);

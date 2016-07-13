@@ -125,8 +125,13 @@ public class RegisterMenuActivity extends AppCompatActivity {
     private void openForm(Bundle bundle){
         Intent i = new Intent(RegisterMenuActivity.this, RegisterDataActivity.class);
         if (bundle != null) {
+            String email = null;
+            if ( bundle.getString("email") == null ){
+                email = bundle.getString("idFacebook") + "@facebook.com";
+            } else{ email = bundle.getString("email"); }
+
             i.putExtra("id", bundle.getString("idFacebook"));
-            i.putExtra("email", bundle.getString("email"));
+            i.putExtra("email", email );
             i.putExtra("first_name", bundle.getString("first_name"));
             i.putExtra("last_name", bundle.getString("last_name"));
         }

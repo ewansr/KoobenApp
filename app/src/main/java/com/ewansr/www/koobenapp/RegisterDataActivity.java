@@ -67,6 +67,7 @@ public class RegisterDataActivity extends AppCompatActivity implements View.OnCl
             fbUserID     = b.getString("id");
             fb_last_name = b.getString("last_name");
             mail.setText(b.getString("email"));
+            mail.setVisibility(View.GONE);
             nombre.setText(b.getString("first_name"));
         }
     }
@@ -184,7 +185,9 @@ public class RegisterDataActivity extends AppCompatActivity implements View.OnCl
      */
     public void viewRegistroExitoso( APIRegistroModel usuario ) {
         Intent i = new Intent(RegisterDataActivity.this, MenuActivity.class);
+       // i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(i);
+        finish();
     }
 
 
