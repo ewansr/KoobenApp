@@ -80,18 +80,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             APIFacebook objAF = new APIFacebook() {
                 @Override public void SuccessAuth( Bundle datos ) {
                     ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
-                    progressDialog.setMessage("Leyendo sesión activa...");
+                    progressDialog.setMessage( "Leyendo sesión activa..." );
                     progressDialog.show();
 
-                    String email = null;
-                    if ( datos.getString("email") == null ){
-                        email = datos.getString("idFacebook") + "@facebook.com";
-                    } else {
-                        email = datos.getString("email");
-                    }
+                    String email = datos.getString( "email" );
+                    email = ( ( email == null ) ? datos.getString("idFacebook") + "@facebook.com" : email );
                     koobenFacebookLogin( email , accessToken );
                 }
             };
+
             final GraphRequest request = objAF.getDataFb( AccessToken.getCurrentAccessToken(), accessToken, imgFB );
             Bundle parameters = new Bundle();
             parameters.putString( "fields", "id,first_name,last_name,email,gender,birthday,location" );
