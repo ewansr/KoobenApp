@@ -184,8 +184,11 @@ public class RegisterDataActivity extends AppCompatActivity implements View.OnCl
      * Llamado si el registro fue exitoso
      */
     public void viewRegistroExitoso( APIRegistroModel usuario ) {
+        nombre.setText("");
+        mail.setText("");
+        password.setText("");
+        confirmacion.setText("");
         Intent i = new Intent(RegisterDataActivity.this, MenuActivity.class);
-       // i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(i);
         finish();
     }
