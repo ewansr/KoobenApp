@@ -60,13 +60,14 @@ public class RegisterDataActivity extends AppCompatActivity implements View.OnCl
         toolbar.setNavigationOnClickListener( this );
 
         fbUserID = "";
-        fb_last_name = "";
+        fb_last_name = " ";
 
         Bundle b = getIntent().getExtras();
         if (b != null){
             fbUserID     = b.getString("id");
             fb_last_name = b.getString("last_name");
             mail.setText(b.getString("email"));
+            mail.setVisibility(View.GONE);
             nombre.setText(b.getString("first_name"));
         }
     }
@@ -183,8 +184,13 @@ public class RegisterDataActivity extends AppCompatActivity implements View.OnCl
      * Llamado si el registro fue exitoso
      */
     public void viewRegistroExitoso( APIRegistroModel usuario ) {
+        nombre.setText("");
+        mail.setText("");
+        password.setText("");
+        confirmacion.setText("");
         Intent i = new Intent(RegisterDataActivity.this, MenuActivity.class);
         startActivity(i);
+        finish();
     }
 
 

@@ -1,8 +1,7 @@
 package com.ewansr.www.koobenapp;
-
-
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -12,13 +11,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import java.util.Arrays;
@@ -52,83 +51,105 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView( R.layout.activity_login );
         setStatusColor( LoginActivity.this );
 
-        context = LoginActivity.this;
-        btnLogin = (Button) findViewById( R.id.btnLogin );
-        mail = (EditText) findViewById( R.id.edtUsuario );
-        password = (EditText) findViewById( R.id.edtContrasena );
-        tvRegister = (TextView) findViewById(R.id.tvRegister);
-        tvNameFB = (TextView) findViewById(R.id.tvNameFB);
-        facebookLogin = (LoginButton) findViewById(R.id.btnFacebookLogin);
-        imgFB = (CircleImageView) findViewById(R.id.imgFB);
+        context       = LoginActivity.this;
+        btnLogin      = (Button)          findViewById( R.id.btnLogin );
+        mail          = (EditText)        findViewById( R.id.edtUsuario );
+        password      = (EditText)        findViewById( R.id.edtContrasena );
+        tvRegister    = (TextView)        findViewById( R.id.tvRegister );
+        tvNameFB      = (TextView)        findViewById( R.id.tvNameFB );
+        facebookLogin = (LoginButton)     findViewById( R.id.btnFacebookLogin );
+        imgFB         = (CircleImageView) findViewById( R.id.imgFB );
 
         btnLogin.setOnClickListener( this );
         tvRegister.setOnClickListener( this );
+        facebookLogin.setReadPermissions( Arrays.asList("email") );
+        facebookButtonVerificarSesion();
+        facebookButtonInicializar();
+    }
 
-        // Si ya tiene token activo lanzar la activity principal
+
+
+    /**
+     * Verifica la sesión de Facebook
+     *
+     */
+    private void facebookButtonVerificarSesion() {
         if ( AccessToken.getCurrentAccessToken() != null) {
             final String accessToken = AccessToken.getCurrentAccessToken().getToken();
 
             APIFacebook objAF = new APIFacebook() {
                 @Override public void SuccessAuth( Bundle datos ) {
-                    LoginFB( datos.getString("email"), accessToken );
+                    ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
+                    progressDialog.setMessage("Leyendo sesión activa...");
+                    progressDialog.show();
+
+                    String email = null;
+                    if ( datos.getString("email") == null ){
+                        email = datos.getString("idFacebook") + "@facebook.com";
+                    } else {
+                        email = datos.getString("email");
+                    }
+                    koobenFacebookLogin( email , accessToken );
                 }
             };
-            final GraphRequest request = objAF.getDataFb(AccessToken.getCurrentAccessToken(), accessToken, imgFB);
+            final GraphRequest request = objAF.getDataFb( AccessToken.getCurrentAccessToken(), accessToken, imgFB );
             Bundle parameters = new Bundle();
-            parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location"); // Parámetros que pedimos a facebook
-            request.setParameters(parameters);
+            parameters.putString( "fields", "id,first_name,last_name,email,gender,birthday,location" );
+            request.setParameters( parameters );
             request.executeAsync();
         }
+    }
 
-        facebookLogin.setReadPermissions( Arrays.asList("email") );
+
+
+    /**
+     * Inicializa el botón de inicio de sesión de Facebook
+     *
+     */
+    private void facebookButtonInicializar() {
         facebookLogin.registerCallback( callbackManager, new FacebookCallback<LoginResult>() {
-            @Override public void onSuccess(LoginResult loginResult) {
-                Log.i( "edmsamuel", "Login con Facebook exitoso." );
+            @Override public void onSuccess( LoginResult loginResult ) {
                 ProgressDialog progressDialog = null;
 
                 try {
                     progressDialog = new ProgressDialog(LoginActivity.this);
-                    progressDialog.setMessage("Leyendo datos de Facebook");
+                    progressDialog.setMessage( "Por favor, espere..." );
                     progressDialog.show();
 
-                    // Token de la sessión activa
-                    String accessToken = null;
-                    if (AccessToken.getCurrentAccessToken() != null) {
-                        accessToken = AccessToken.getCurrentAccessToken().getToken();
-                    }
+                    AccessToken accessToken = AccessToken.getCurrentAccessToken();
+                    String str_token = ( ( accessToken != null ) ? AccessToken.getCurrentAccessToken().getToken() : "" );
 
-                    Log.i("accessToken", accessToken);
-
-                    if (AccessToken.getCurrentAccessToken() != null) {
-                        final String at = AccessToken.getCurrentAccessToken().getToken();
+                    if ( accessToken != null ) {
+                        final String at = str_token;
 
                         APIFacebook objAF = new APIFacebook() {
                             @Override public void SuccessAuth( Bundle datos ) {
-                                LoginFB(datos.getString("email"), at);
+                                String email = datos.getString( "email" );
+                                email = ( email == null ? datos.getString( "idFacebook" ) + "@facebook.com" : email );
+                                koobenFacebookLogin( email , at );
                             }
                         };
 
-                        final GraphRequest request = objAF.getDataFb(AccessToken.getCurrentAccessToken(), accessToken, imgFB);
+                        final GraphRequest request = objAF.getDataFb( AccessToken.getCurrentAccessToken(), str_token, imgFB );
                         Bundle parameters = new Bundle();
-                        parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location"); // Parámetros que pedimos a facebook
-                        request.setParameters(parameters);
+                        parameters.putString( "fields", "id,first_name,last_name,email,gender,birthday,location" );
+                        request.setParameters( parameters );
                         request.executeAsync();
                     }
 
+                } catch ( Exception error ) {
+                    loginActivityShowMessage( "Facebook Login :: " + error.getClass().toString(), error.getLocalizedMessage() + " :: " + error.getMessage() );
                 } finally {
-                    if (progressDialog.isShowing()){
-                        progressDialog.dismiss();
-                    }
+                    if ( progressDialog.isShowing() ) { progressDialog.dismiss(); }
                 }
             }
 
             @Override public void onCancel() {
-                Log.i( "edmsamuel", "Login con Facebook cancelado" );
+                loginActivityShowMessage( "Facebook", "Operacion Cancelada" );
             }
 
-            @Override public void onError(FacebookException exception) {
-                System.out.println("onError");
-                Log.v("LoginActivity", exception.getCause().toString());
+            @Override public void onError( FacebookException exception ) {
+                loginActivityShowMessage( "FacebookException :: " + exception.getCause().toString(), exception.getLocalizedMessage() + "::" + exception.getMessage() );
             }
         });
     }
@@ -137,9 +158,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     /**
      * Limpia los campos del formulario
+     *
      */
-    // No me digassssssssssssssssss
-    // si te digooooo
     public void clearForm() {
         mail.setText( "" );
         password.setText( "" );
@@ -153,29 +173,45 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      */
     public void loginAutenticacionExitosa( APILoginAuthModel usuario ) {
         clearForm();
-        AlertDialog.Builder builder = new AlertDialog.Builder( LoginActivity.this );
-        builder
-                .setTitle( "Autenticación exitosa" )
-                .setMessage( "Bienvenido " + usuario.nombre + " " + usuario.apellidos )
-                .create()
-                .show();
+        loginActivityShowMessage( "Autenticación exitosa", "Bienvenido " + usuario.nombre + " " + usuario.apellidos );
         Intent i = new Intent(LoginActivity.this, MenuActivity.class);
         startActivity(i);
+        finish();
     }
 
 
 
     /**
-     * Llamdo al ocurrir un error en la autenticación
-     *
+     * Llamado al ocurrir un error en la autenticación
      */
     public void loginAutenticacionFallida() {
+        loginActivityShowMessage( "Error de autenticación", "Usuario ó Contraseña incorrectos" );
+        clearForm();
+    }
+
+
+
+    /**
+     * Llamado al ocurrir un error en la autenticación al no tener cuenta con fb
+     */
+    public void loginAutenticacionFallidaFB() {
+        LoginManager.getInstance().logOut();
         AlertDialog.Builder builder = new AlertDialog.Builder( LoginActivity.this );
         builder
-            .setTitle( "Error de autenticación" )
-            .setMessage( "Usuario ó Contraseña incorrectos" )
-            .create()
-            .show();
+                .setTitle( "Error de autenticación" )
+                .setMessage( "Al parecer aun no te has registrado para acceder a nuestra aplicación. ¿Deseas registrarte?" )
+                .setPositiveButton( "Si", new DialogInterface.OnClickListener()  {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent i = new Intent( context, RegisterMenuActivity.class );
+                        startActivity( i );
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton( "No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                }).create().show();
         clearForm();
     }
 
@@ -190,17 +226,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if ( target.getId() == R.id.btnLogin ) {
             ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
-            progressDialog.setMessage("Procesando datos...");
+            progressDialog.setMessage("Iniciando sesión...");
             progressDialog.show();
+
             try {
                 APILoginAuth autenticacion = new APILoginAuth() {
-                    @Override
-                    public void autenticacionExitosa(APILoginAuthModel usuario) {
-                        loginAutenticacionExitosa(usuario);
+                    @Override public void autenticacionExitosa(APILoginAuthModel usuario) {
+                        loginAutenticacionExitosa( usuario );
                     }
 
-                    @Override
-                    public void autenticacionFallida() {
+                    @Override public void autenticacionFallida() {
                         loginAutenticacionFallida();
                     }
                 };
@@ -220,14 +255,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
 
-    @Override protected void onActivityResult( int requestCode, int resultCode, Intent data ) {
-        super.onActivityResult( requestCode, resultCode, data );
-        callbackManager.onActivityResult( requestCode, resultCode, data );
-    }
-
-
-
-    private void LoginFB(String emailFb, String finalAccessToken){
+    /**
+     * Solicita a la api la autenticación del usuario con datos de Facebook
+     * @param emailFb
+     * @param finalAccessToken
+     */
+    private void koobenFacebookLogin(String emailFb, String finalAccessToken){
         // Login con API de don twichy
         APILoginAuth autenticacion = new APILoginAuth() {
             @Override public void autenticacionExitosa(APILoginAuthModel usuario) {
@@ -235,10 +268,33 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
 
             @Override public void autenticacionFallida() {
-                loginAutenticacionFallida();
+                loginAutenticacionFallidaFB();
             }
         };
         autenticacion.autenticarConFacebook(emailFb, finalAccessToken);
     }
 
+
+
+    /**
+     * Muestra un mensaje simple
+     *
+     * @param title
+     * @param message
+     */
+    public void loginActivityShowMessage( String title, String message ) {
+        AlertDialog.Builder builder = new AlertDialog.Builder( LoginActivity.this );
+        builder
+                .setTitle( title )
+                .setMessage( message )
+                .create()
+                .show();
+    }
+
+
+
+    @Override protected void onActivityResult( int requestCode, int resultCode, Intent data ) {
+        super.onActivityResult( requestCode, resultCode, data );
+        callbackManager.onActivityResult( requestCode, resultCode, data );
+    }
 }
