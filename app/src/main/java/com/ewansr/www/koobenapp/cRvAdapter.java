@@ -4,6 +4,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 
+import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -42,7 +43,7 @@ public class cRvAdapter extends RecyclerView.Adapter<cRvAdapter.recipesViewHolde
     }
 
     @Override
-    public void onBindViewHolder(recipesViewHolder holder, int position) {
+    public void onBindViewHolder(final recipesViewHolder holder, int position) {
         YoYo.with(Techniques.FadeIn).playOn(holder.cv);
         holder.recipeName.setText(recipes.get(position).name);
         holder.recipeCode.setText(recipes.get(position).preparation);
@@ -52,9 +53,12 @@ public class cRvAdapter extends RecyclerView.Adapter<cRvAdapter.recipesViewHolde
         holder.nombreReceta = recipes.get(position).preparation;
 
         //holder.initheight(-1);
+
+        holder.img.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        holder.img.getLayoutParams().height = 250;
         Picasso.with(context)
                 .load(cRutasAPI.urlImgRecetas + cRutasAPI.imgNameRecipes + Integer.toString(recipes.get(position).getId()) + cRutasAPI.extjpg)
-                .error(R.drawable.cloud_outline_off)
+                .error(R.drawable.logo_kooben)
                 .placeholder( R.drawable.progress_animation)
                 .into(holder.img);
     }
@@ -75,7 +79,6 @@ public class cRvAdapter extends RecyclerView.Adapter<cRvAdapter.recipesViewHolde
         TextView recipeName;
         TextView recipeCode;
         ImageView img;
-//        FloatingActionButton btnExpand;
         String url, nombreReceta, preparacion;
         int IdReceta;
         FloatingActionButton btnShow;
