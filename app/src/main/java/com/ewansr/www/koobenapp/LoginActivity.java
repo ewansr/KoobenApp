@@ -149,7 +149,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
 
             @Override public void onError( FacebookException exception ) {
-                loginActivityShowMessage( "FacebookException :: " + exception.getCause().toString(), exception.getLocalizedMessage() + "::" + exception.getMessage() );
+                loginActivityShowMessage( "FacebookException :: ", exception.getLocalizedMessage() + "::" + exception.getMessage() );
             }
         });
     }
