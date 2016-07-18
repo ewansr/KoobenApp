@@ -1,12 +1,13 @@
 package com.ewansr.www.koobenapp;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +24,7 @@ import com.facebook.login.widget.LoginButton;
 import java.util.Arrays;
 import de.hdodenhof.circleimageview.CircleImageView;
 import static com.ewansr.www.koobenapp.cUtils.setStatusColor;
+import static com.ewansr.www.koobenapp.SQLiteDBConfig.DATABASE_NAME;
 
 
 
@@ -65,6 +67,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         facebookLogin.setReadPermissions( Arrays.asList("email") );
         facebookButtonVerificarSesion();
         facebookButtonInicializar();
+
+        SQLiteDBDataSource dataSource = new SQLiteDBDataSource(this);
     }
 
 
