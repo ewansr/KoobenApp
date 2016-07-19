@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by Saulo Euan on 07/06/2016.
  */
@@ -21,8 +23,12 @@ class LoadRemoteImg extends AsyncTask<String, Void, Bitmap> {
     public Context context;
     private Exception exception;
     private ImageView img;
+    private CircleImageView circleImg;
     private AppBarLayout Abl;
 
+    public LoadRemoteImg(CircleImageView circleImg){
+        this.circleImg = circleImg;
+    }
     public LoadRemoteImg(ImageView img){
         this.img = img;
     }
@@ -59,6 +65,10 @@ class LoadRemoteImg extends AsyncTask<String, Void, Bitmap> {
     protected void onPostExecute(Bitmap bmp) {
         if (bmp != null && img != null) {
             img.setImageBitmap(bmp);
+        }
+
+        if (bmp != null && circleImg != null) {
+            circleImg.setImageBitmap(bmp);
         }
 
         if (bmp != null && Abl != null) {

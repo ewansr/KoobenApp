@@ -34,7 +34,7 @@ public class APILoginAuth extends APIKoobenRequest implements APILoginAuthInterf
             JSONObject usuario = new JSONObject();
             usuario.put( "mail", mail );
             usuario.put( "oauth", "facebook" );
-            usuario.put( "updateToken", true );
+            usuario.put( "updateToken", "true" );
             usuario.put( "token", token );
             headers.clear();
             headers.add( "KOOBEN-APPLICATION-NAME", "android" );
@@ -70,7 +70,7 @@ public class APILoginAuth extends APIKoobenRequest implements APILoginAuthInterf
                 autenticacionFallida();
             }
         } catch ( Exception e ) {
-            Log.e( this.getClass().toString(), e.getMessage() );
+            KoobenRequestError( e );
         }
     }
 

@@ -8,9 +8,12 @@ import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.net.HttpURLConnection;
 import java.io.InputStream;
+
+import javax.net.ssl.HttpsURLConnection;
 
 /**
  * Clase para solicitudes HTTP
@@ -71,7 +74,8 @@ public abstract class APIKoobenRequest extends AsyncTask<String, Void, JSONObjec
             int responseCode;
 
             URL url = new URL( params[0] );
-            HttpURLConnection url_connection = ( HttpURLConnection ) url.openConnection();
+            HttpURLConnection connection = ( HttpsURLConnection ) url.openConnection();
+            connection.setDoInput(true);
 
             if ( this.tipo != APIKoobenRequestType.GET && this.tipo != APIKoobenRequestType.DELETE ) {
 
@@ -90,29 +94,42 @@ public abstract class APIKoobenRequest extends AsyncTask<String, Void, JSONObjec
                 Log.i( "KoobenRequest", "Adjuntando a la solicitud `" + body + "`" );
 
                 // establecer headers.
+<<<<<<< HEAD
+                connection.setRequestProperty( "Content-Type", "application/json" );
+                connection.setRequestProperty( "Content-Length", Integer.toString( content_length  ) );
+                for ( int header_idx = 0; header_idx < headers.items.size(); header_idx++ ) {
+=======
                 url_connection.setRequestProperty( "Content-Type", "application/json" );
                 url_connection.setRequestProperty( "Content-Length", Integer.toString( content_length  ) );
                 headers_count = headers.items.size();
                 for ( int header_idx = 0; header_idx < headers_count; header_idx++ ) {
+>>>>>>> edmsamuel_mismenus
                     header = headers.get( header_idx );
-                    url_connection.setRequestProperty( header.name, header.value );
+                    connection.setRequestProperty( header.name, header.value );
                 }
-                url_connection.setDoOutput( true );
+                connection.setDoOutput( true );
 
                 // añadir datos al body
-                dataOutputStream = new DataOutputStream( url_connection.getOutputStream() );
+                dataOutputStream = new DataOutputStream( connection.getOutputStream() );
                 dataOutputStream.writeBytes( body );
                 dataOutputStream.flush();
                 dataOutputStream.close();
             }
 
             // establecer el tipo de verbo y leer código de respuesta
-            url_connection.setRequestMethod( this.getRequestMethod() );
-            responseCode = url_connection.getResponseCode();
+            connection.setConnectTimeout( 15000 );
+
+            try {
+                connection.setRequestMethod( this.getRequestMethod() );
+            } catch ( ProtocolException error ) {
+                Log.e( this.getClass().toString(), error.getMessage() );
+            }
+
+            responseCode = connection.getResponseCode();
             hasErrors = ( responseCode != 200 );
 
             // obtener el resultado de la solicitud
-            inputStream = new BufferedInputStream( url_connection.getInputStream() );
+            inputStream = new BufferedInputStream( connection.getInputStream() );
             bufferedReader = new BufferedReader( new InputStreamReader( inputStream ) );
             while ( ( line = bufferedReader.readLine() ) != null ) {
                 responseText.append( line );
@@ -126,7 +143,7 @@ public abstract class APIKoobenRequest extends AsyncTask<String, Void, JSONObjec
             }
 
             // terminar la conexión
-            url_connection.disconnect();
+            connection.disconnect();
         } catch ( Exception error ) {
             hasErrors = true;
             this.error = error;

@@ -25,6 +25,23 @@ public class APIRegistro extends APIKoobenRequest {
 
 
     /**
+<<<<<<< HEAD
+     * Ejecutado antes del doInBackground
+     *
+     *
+    */
+    @Override
+    protected void onPreExecute() {
+        progressDialog = new ProgressDialog( context );
+        progressDialog.setTitle( "Creando su cuenta" );
+        progressDialog.setMessage( "Por favor espere..." );
+        progressDialog.show();
+    }
+
+
+    /**
+=======
+>>>>>>> edmsamuel_mismenus
      * Solicita la creación de un nuevo usuario
      *
      * @param usuario JSONObject Datos del nuevo usuario
@@ -76,6 +93,7 @@ public class APIRegistro extends APIKoobenRequest {
             usuario.apellidos = response.getString( "sApellidos" );
             usuario.session = response.getString( "sessionId" );
             registroExitoso( usuario );
+
 
         } catch ( Exception error ) {
             registroError( error.getMessage() );

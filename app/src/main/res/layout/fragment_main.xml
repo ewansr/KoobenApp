@@ -5,24 +5,6 @@
     android:paddingBottom="@dimen/margen_superior"
     tools:context="com.ewansr.www.koobenapp.MainActivity$PlaceholderFragment">
 
-    <android.support.v4.view.ViewPager
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/view"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/imageView" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="250dp"
-        android:id="@+id/imageView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/view"
-        android:layout_alignEnd="@+id/view"
-        android:src="@drawable/camarones_a_la_diabla"
-        android:scaleType="centerCrop" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -30,16 +12,52 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Camarones a la diabla"
         android:fontFamily="sans-serif"
-        android:id="@+id/tvTituloReceta"
-        android:layout_alignParentTop="false"
-        android:layout_alignRight="@+id/imageView"
-        android:layout_alignEnd="@+id/imageView"
-        android:background="@color/color_Negro_transparente"
+        android:id="@+id/tvTituloSlide"
+        android:background="@drawable/gradient_background"
         android:textColor="@color/color_Blanco"
         android:textIsSelectable="false"
         android:foregroundGravity="center_vertical|center"
-        android:layout_alignLeft="@+id/imageView"
-        android:layout_alignStart="@+id/imageView"
-        android:gravity="center_vertical|center_horizontal" />
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/viewDetailScrolling"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/tvTituloReceta"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/tvDescripcion"
+        android:text="@string/large_text"
+        android:layout_alignTop="@+id/viewDetailScrolling"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp" />
+    </android.support.v4.widget.NestedScrollView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvTituloReceta"
+        android:text="Camarones a la diabla"
+        android:textColor="@color/color_primario_cyan"
+        android:textSize="18sp"
+        android:textStyle="bold"
+
+        android:layout_alignLeft="@+id/viewDetailScrolling"
+        android:layout_alignStart="@+id/viewDetailScrolling" />
 
 </RelativeLayout>
