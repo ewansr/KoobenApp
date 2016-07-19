@@ -94,6 +94,7 @@ public class APIRegistro extends APIKoobenRequest {
             usuario.session = response.getString( "sessionId" );
             registroExitoso( usuario );
 
+
         } catch ( Exception error ) {
             registroError( error.getMessage() );
         }

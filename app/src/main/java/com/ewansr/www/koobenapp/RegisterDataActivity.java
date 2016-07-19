@@ -1,6 +1,7 @@
 package com.ewansr.www.koobenapp;
 
-import android.app.ProgressDialog;
+
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,13 +14,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-
-import com.facebook.CallbackManager;
-import com.facebook.FacebookSdk;
-
 import org.json.JSONObject;
-import mehdi.sakout.fancybuttons.FancyButton;
 import static com.ewansr.www.koobenapp.cUtils.setStatusColor;
+import static com.ewansr.www.koobenapp.SQLiteDBDataSource.insertDataUser;
 
 /**
  * Created by EwanS on 22/06/2016.
@@ -36,6 +33,7 @@ public class RegisterDataActivity extends AppCompatActivity implements View.OnCl
     private APIRegistro registro;
     private String fbUserID;
     private String fb_last_name;
+    private ContentValues values;
 
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
@@ -105,6 +103,9 @@ public class RegisterDataActivity extends AppCompatActivity implements View.OnCl
             String _password = password.getText().toString().trim();
             String _confirmacion = confirmacion.getText().toString().trim();
             String form = _mail + _nombre + _password + _confirmacion;
+
+
+
             viewForm.setEnabled(false);
 
             if (form.isEmpty()) {
@@ -131,7 +132,6 @@ public class RegisterDataActivity extends AppCompatActivity implements View.OnCl
             usuario.put( "sTipo", "user" );
 
             registro.registrar( usuario );
-
         } catch ( Exception e ) {
             String mensaje;
             String codigo = e.getMessage();
@@ -188,6 +188,19 @@ public class RegisterDataActivity extends AppCompatActivity implements View.OnCl
         mail.setText("");
         password.setText("");
         confirmacion.setText("");
+
+        values = new ContentValues();
+        values.put(SQLiteDBDataSource.ColumnQuotes.PROFILE_IMG,  (!fbUserID.isEmpty()?"https://graph.facebook.com/" + fbUserID + "/picture?type=large":""));
+        values.put(SQLiteDBDataSource.ColumnQuotes.PROFILE_MAIL, usuario.mail);
+        values.put(SQLiteDBDataSource.ColumnQuotes.PROFILE_NAME, usuario.nombre);
+        values.put(SQLiteDBDataSource.ColumnQuotes.PROFILE_TYPE, "user");
+        values.put(SQLiteDBDataSource.ColumnQuotes.PROFILE_USER, usuario.mail);
+        values.put(SQLiteDBDataSource.ColumnQuotes.SESSIONID,    usuario.session);
+
+        if (values != null){
+            insertDataUser(RegisterDataActivity.this, values);
+        }
+
         Intent i = new Intent(RegisterDataActivity.this, MenuActivity.class);
         startActivity(i);
         finish();
