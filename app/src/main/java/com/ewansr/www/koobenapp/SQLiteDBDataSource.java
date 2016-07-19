@@ -2,6 +2,7 @@ package com.ewansr.www.koobenapp;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 import android.renderscript.Script;
@@ -59,13 +60,22 @@ public class SQLiteDBDataSource {
 
         SQLiteDbHelper dbh = new SQLiteDbHelper(context);
         SQLiteDatabase db = dbh.getWritableDatabase();
-        db.insert("user_profile", null, values);
+        db.insert(TABLE_NAME, null, values);
     }
 
     public static void insertDataUser(Context context, ContentValues values){
         SQLiteDbHelper dbh = new SQLiteDbHelper(context);
         SQLiteDatabase db = dbh.getWritableDatabase();
         db.execSQL("delete from "+ TABLE_NAME);
-        db.insert("user_profile", null, values);
+        db.insert(TABLE_NAME, null, values);
     }
+
+    public static long getProfilesCount(Context context) {
+        SQLiteDbHelper dbh = new SQLiteDbHelper(context);
+        SQLiteDatabase db = dbh.getWritableDatabase();
+        long cnt  = DatabaseUtils.queryNumEntries(db, TABLE_NAME);
+        db.close();
+        return cnt;
+    }
+
 }

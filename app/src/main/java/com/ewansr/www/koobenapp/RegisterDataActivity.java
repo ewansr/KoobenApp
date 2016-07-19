@@ -190,12 +190,12 @@ public class RegisterDataActivity extends AppCompatActivity implements View.OnCl
         confirmacion.setText("");
 
         values = new ContentValues();
-        values.put(SQLiteDBDataSource.ColumnQuotes.PROFILE_IMG, (!fbUserID.isEmpty()?"https://graph.facebook.com/" + fbUserID + "/picture?type=large":""));
+        values.put(SQLiteDBDataSource.ColumnQuotes.PROFILE_IMG,  (!fbUserID.isEmpty()?"https://graph.facebook.com/" + fbUserID + "/picture?type=large":""));
         values.put(SQLiteDBDataSource.ColumnQuotes.PROFILE_MAIL, usuario.mail);
         values.put(SQLiteDBDataSource.ColumnQuotes.PROFILE_NAME, usuario.nombre);
         values.put(SQLiteDBDataSource.ColumnQuotes.PROFILE_TYPE, "user");
         values.put(SQLiteDBDataSource.ColumnQuotes.PROFILE_USER, usuario.mail);
-        values.put(SQLiteDBDataSource.ColumnQuotes.SESSIONID, usuario.session);
+        values.put(SQLiteDBDataSource.ColumnQuotes.SESSIONID,    usuario.session);
 
         if (values != null){
             insertDataUser(RegisterDataActivity.this, values);
