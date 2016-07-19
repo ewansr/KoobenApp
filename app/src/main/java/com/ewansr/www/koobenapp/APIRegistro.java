@@ -25,6 +25,7 @@ public class APIRegistro extends APIKoobenRequest {
 
 
     /**
+<<<<<<< HEAD
      * Ejecutado antes del doInBackground
      *
      *
@@ -39,6 +40,8 @@ public class APIRegistro extends APIKoobenRequest {
 
 
     /**
+=======
+>>>>>>> edmsamuel_mismenus
      * Solicita la creación de un nuevo usuario
      *
      * @param usuario JSONObject Datos del nuevo usuario
@@ -46,6 +49,18 @@ public class APIRegistro extends APIKoobenRequest {
     public void registrar( JSONObject usuario ) {
         headers.add( "KOOBEN APPLICATION NAME", "android" );
         post( "/users", usuario );
+    }
+
+
+
+    /**
+     * Llamado antes de iniciar el doInBackground
+     *
+     * @author edmsamuel
+     */
+    @Override
+    public void KoobenRequestBeforeExecute() {
+        progressDialog = ProgressDialog.show( context, "Creando su cuenta", "Por favor espere...", true, true );
     }
 
 

@@ -40,6 +40,19 @@ public abstract class APIKoobenRequest extends AsyncTask<String, Void, JSONObjec
 
 
 
+
+    /**
+     * Llamado antes de iniciar el doInBackground
+     *
+     * @author edmsamuel
+     */
+    @Override
+    public void onPreExecute() {
+        KoobenRequestBeforeExecute();
+    }
+
+
+
     /**
      * Proceso de ejecución en segundo plano.
      *
@@ -67,6 +80,7 @@ public abstract class APIKoobenRequest extends AsyncTask<String, Void, JSONObjec
             if ( this.tipo != APIKoobenRequestType.GET && this.tipo != APIKoobenRequestType.DELETE ) {
 
                 int content_length;
+                int headers_count;
                 byte[] content_bytes;
                 DataOutputStream dataOutputStream;
                 APIKoobenRequestHeader header;
@@ -80,9 +94,16 @@ public abstract class APIKoobenRequest extends AsyncTask<String, Void, JSONObjec
                 Log.i( "KoobenRequest", "Adjuntando a la solicitud `" + body + "`" );
 
                 // establecer headers.
+<<<<<<< HEAD
                 connection.setRequestProperty( "Content-Type", "application/json" );
                 connection.setRequestProperty( "Content-Length", Integer.toString( content_length  ) );
                 for ( int header_idx = 0; header_idx < headers.items.size(); header_idx++ ) {
+=======
+                url_connection.setRequestProperty( "Content-Type", "application/json" );
+                url_connection.setRequestProperty( "Content-Length", Integer.toString( content_length  ) );
+                headers_count = headers.items.size();
+                for ( int header_idx = 0; header_idx < headers_count; header_idx++ ) {
+>>>>>>> edmsamuel_mismenus
                     header = headers.get( header_idx );
                     connection.setRequestProperty( header.name, header.value );
                 }
@@ -273,6 +294,15 @@ public abstract class APIKoobenRequest extends AsyncTask<String, Void, JSONObjec
 
         return method;
     }
+
+
+
+    /**
+     * Llamado antes de iniciar el doInBackground
+     *
+     * @author edmsamuel
+     */
+    public abstract void KoobenRequestBeforeExecute();
 
 
 
