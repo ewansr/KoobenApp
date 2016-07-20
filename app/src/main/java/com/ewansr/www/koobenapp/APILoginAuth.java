@@ -8,7 +8,7 @@ import org.json.JSONObject;
  *
  * @author edmsamuel 21/06/16.
  */
-public class APILoginAuth extends APIKoobenRequest implements APILoginAuthInterface {
+public class APILoginAuth extends APIKoobenRequest {
 
     /**
      * Solicita a la api una nueva autenticación
@@ -45,6 +45,10 @@ public class APILoginAuth extends APIKoobenRequest implements APILoginAuthInterf
         }
     }
 
+
+    @Override
+    public void KoobenRequestBeforeExecute() {
+    }
 
     /**
      * Llamado al concluir la solicitud de autenticación.
@@ -92,7 +96,7 @@ public class APILoginAuth extends APIKoobenRequest implements APILoginAuthInterf
      *
      * @param usuario APIModelLoginAuth Resultado de la autenticación
      */
-    @Override public void autenticacionExitosa( APILoginAuthModel usuario ) {
+    public void autenticacionExitosa( APILoginAuthModel usuario ) {
     }
 
 
@@ -101,6 +105,6 @@ public class APILoginAuth extends APIKoobenRequest implements APILoginAuthInterf
      * Debe ser llamado en caso que la autenticación sea incorrecta.
      *
      */
-    @Override public void autenticacionFallida() {
+    public void autenticacionFallida() {
     }
 }
