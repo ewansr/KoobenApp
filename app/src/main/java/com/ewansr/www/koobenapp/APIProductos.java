@@ -82,7 +82,10 @@ public abstract class APIProductos extends AppCompatActivity {
 
 
 
+    // invocado antes de enviar la solicitud para la obtención de la lista
     public abstract void productosBeforeLoad();
+    // invocado cuando se ha recibido la lista
     public abstract void productosItemsLoaded( ArrayList<APIProductoModel> items );
+    // invocado en caso que haya un error al obtener la lista
     public abstract void productosLoadError( KoobenException error );
 }
