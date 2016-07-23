@@ -6,5 +6,4 @@ package com.ewansr.www.koobenapp;
 public final class SQLiteDBConfig {
     public static String DATABASE_NAME = "dbkooben";
     public static int DATABASE_VERSION = 4;
-
 }
