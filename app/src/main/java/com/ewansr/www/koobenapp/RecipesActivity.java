@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -24,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 /**
  * Created by Saulo Euan on 07/06/2016.
@@ -104,13 +106,13 @@ public class RecipesActivity extends AppCompatActivity implements NavigationView
     /** Codigo para el nav Header
      *  Permite controlar las acciones de cada item dentro del navigationView
      **/
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         /** Controlar los elementos del NavigationView al hacer click**/
         int id = item.getItemId();
 
         if (id == R.id.nav_compras) {
+
 
         }
 

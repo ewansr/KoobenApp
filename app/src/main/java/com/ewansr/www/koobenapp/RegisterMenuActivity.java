@@ -35,12 +35,13 @@ public class RegisterMenuActivity extends AppCompatActivity implements View.OnCl
 
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_registermenu );
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar( toolbar );
         getSupportActionBar().setDisplayHomeAsUpEnabled( true );
         getSupportActionBar().setDisplayShowHomeEnabled( true );
         setStatusColor( RegisterMenuActivity.this );
 
-        toolbar = (Toolbar) findViewById( R.id.toolbar );
+
         btnLogin = (Button) findViewById( R.id.btnCrearCuenta );
         facebookLogin = (LoginButton) findViewById( R.id.btnFacebookLogin );
         btnLogin.setOnClickListener( this );
