@@ -32,7 +32,7 @@
         <item
             android:id="@+id/nav_cerrarsesion"
             android:icon="@android:drawable/ic_menu_slideshow"
-            android:title="Configuración" />
+            android:title="Cerrar Sesión" />
     </group>
 
 </menu>

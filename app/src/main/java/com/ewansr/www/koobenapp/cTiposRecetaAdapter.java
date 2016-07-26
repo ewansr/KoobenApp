@@ -116,7 +116,7 @@ public class cTiposRecetaAdapter<String> extends ArrayAdapter<String> implements
             String filterableString;
 
             for (int i = 0; i < count; i++) {
-                filterableString = (String) list.get(i);
+                filterableString = (String) list.get(i).nombre;
                 if (filterableString.toString().toLowerCase().contains((CharSequence) filterString)) {
                     nlist.add(filterableString);
                 }

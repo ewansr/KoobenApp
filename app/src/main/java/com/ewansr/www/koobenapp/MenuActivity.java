@@ -140,7 +140,9 @@ public class MenuActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_productos) {
-            Toast.makeText(mainContext, "presionaste Productos", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(mainContext, ProductsActivity.class);
+            startActivity(i);
+            //Toast.makeText(mainContext, "presionaste Productos", Toast.LENGTH_SHORT).show();
         }
 
         if (id == R.id.nav_cerrarsesion){
