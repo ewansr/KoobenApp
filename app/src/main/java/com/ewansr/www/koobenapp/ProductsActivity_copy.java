@@ -2,7 +2,6 @@ package com.ewansr.www.koobenapp;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -11,7 +10,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -30,7 +28,7 @@ import java.util.ArrayList;
 /**
  * Created by Saulo Euan on 07/06/2016.
  */
-public class ProductsActivity extends APIProductos implements NavigationView.OnNavigationItemSelectedListener {
+public class ProductsActivity_copy extends APIProductos implements NavigationView.OnNavigationItemSelectedListener {
     private static Context mainContext;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
@@ -41,7 +39,7 @@ public class ProductsActivity extends APIProductos implements NavigationView.OnN
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products);
-        mainContext = ProductsActivity.this;
+        mainContext = ProductsActivity_copy.this;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -61,18 +59,16 @@ public class ProductsActivity extends APIProductos implements NavigationView.OnN
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        /** inflar el menú y agregar los items a la barra si está disponible */
         getMenuInflater().inflate(R.menu.menu_menu, menu);
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        final SearchView searchView = (SearchView) menu.findItem(R.id.action_search) .getActionView();
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search) .getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setQueryHint("Filtrar productos");
-
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 ((ProductosRvAdapter)rv.getAdapter()).getFilter().filter(query);
-                searchView.setQuery("", false);
-                searchView.setIconified(true);
                 return true;
             }
 
@@ -82,6 +78,7 @@ public class ProductsActivity extends APIProductos implements NavigationView.OnN
                 return true;
             }
         });
+
         return true;
     }
 
@@ -136,7 +133,7 @@ public class ProductsActivity extends APIProductos implements NavigationView.OnN
         Toast.makeText(mainContext, error.getMessage(), Toast.LENGTH_LONG);
     }
 
-    /**
+     /**
      * Fragment PlaceHolder contiene una vista simple
      */
     public static class PlaceholderFragment extends Fragment {

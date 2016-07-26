@@ -30,7 +30,6 @@ import java.util.Random;
 public abstract class ProductosRvAdapter extends RecyclerView.Adapter<ProductosRvAdapter.recipesViewHolder> {
     public ArrayList<APIProductoModel> productsItems;
     private Context context;
-   // private ArrayList<APIProductoModel>  values;
     private ArrayList<APIProductoModel>  mOriginalValues;
     private ItemFilter mFilter = new ItemFilter();
 
@@ -122,7 +121,7 @@ public abstract class ProductosRvAdapter extends RecyclerView.Adapter<ProductosR
         protected FilterResults performFiltering(CharSequence constraint) {
 
             /** Obtengo los caracteres que voy a usar para filtar y los añado a mi variable*/
-            String filterString = (String) constraint.toString().toLowerCase();
+            String filterString = constraint.toString().toLowerCase();
 
             FilterResults results = new FilterResults();
 
@@ -132,7 +131,7 @@ public abstract class ProductosRvAdapter extends RecyclerView.Adapter<ProductosR
             /** Hago un respaldo de mi adaptador original para posteriormente utilizarlo
              * en cuyo caso no encuentre alguna coincidencia */
             if (mOriginalValues == null) {
-                mOriginalValues = new ArrayList<APIProductoModel> (productsItems); /**REspaldo los valores originales*/
+                mOriginalValues = new ArrayList<>(productsItems); /**REspaldo los valores originales*/
             }
 
             /** En el caso que no escriba nada en el filtro o no haya coincidencias
@@ -151,15 +150,14 @@ public abstract class ProductosRvAdapter extends RecyclerView.Adapter<ProductosR
             String filterableString;
 
             for (int i = 0; i < count; i++) {
-                filterableString = (String) list.get(i).nombre;
-                if (filterableString.toString().toLowerCase().contains((CharSequence) filterString)) {
+                filterableString = list.get(i).nombre;
+                if (filterableString.toString().toLowerCase().contains(filterString)) {
                     nlist.add(list.get(i));
                 }
             }
 
             results.values = nlist;
             results.count = nlist.size();
-
             return results;
         }
 

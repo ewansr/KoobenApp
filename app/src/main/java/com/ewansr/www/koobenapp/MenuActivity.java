@@ -11,10 +11,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuInflater;
 import android.widget.AdapterView;
 import android.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -31,8 +33,8 @@ import static com.ewansr.www.koobenapp.SQLiteDBDataSource.deleteAll;
 
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
-    public  static String UrlJSON = cRutasAPI.UrlJSON_tiposReceta;
-    public static Context mainContext;
+    private  static String UrlJSON = cRutasAPI.UrlJSON_tiposReceta;
+    private static Context mainContext;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -91,12 +93,14 @@ public class MenuActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        /** inflar el menú y agregar los items a la barra si está disponible */
         getMenuInflater().inflate(R.menu.menu_menu, menu);
+
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search) .getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
+        searchView.setQueryHint("Buscar una categoria");
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
