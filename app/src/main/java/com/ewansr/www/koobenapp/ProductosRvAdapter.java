@@ -30,7 +30,7 @@ import java.util.Random;
 public abstract class ProductosRvAdapter extends RecyclerView.Adapter<ProductosRvAdapter.recipesViewHolder> {
     public ArrayList<APIProductoModel> productsItems;
     private Context context;
-    private ArrayList<APIProductoModel>  values;
+   // private ArrayList<APIProductoModel>  values;
     private ArrayList<APIProductoModel>  mOriginalValues;
     private ItemFilter mFilter = new ItemFilter();
 
@@ -112,7 +112,6 @@ public abstract class ProductosRvAdapter extends RecyclerView.Adapter<ProductosR
 
     }
 
-
     public Filter getFilter() {
         return mFilter;
     }
@@ -128,19 +127,19 @@ public abstract class ProductosRvAdapter extends RecyclerView.Adapter<ProductosR
             FilterResults results = new FilterResults();
 
             /** A mi lista le asigno los valores de mi adaptador original*/
-            ArrayList<APIProductoModel> list = values;
+            ArrayList<APIProductoModel> list = productsItems;
 
             /** Hago un respaldo de mi adaptador original para posteriormente utilizarlo
              * en cuyo caso no encuentre alguna coincidencia */
             if (mOriginalValues == null) {
-                mOriginalValues = new ArrayList<APIProductoModel> (values); /**REspaldo los valores originales*/
+                mOriginalValues = new ArrayList<APIProductoModel> (productsItems); /**REspaldo los valores originales*/
             }
 
             /** En el caso que no escriba nada en el filtro o no haya coincidencias
              * reasigno los valores originales para que se pueda continuar con el filtrado
              * a la hora de ir borrando caracteres */
 
-            if (constraint == null || constraint.length() == 0 || values.size() == 0) {
+            if (constraint == null || constraint.length() == 0 || productsItems.size() == 0) {
                 /** Regresar sus valores originales*/
                 results.count = mOriginalValues.size();
                 results.values = mOriginalValues;
@@ -148,13 +147,13 @@ public abstract class ProductosRvAdapter extends RecyclerView.Adapter<ProductosR
             }
 
             int count = list.size();
-            final ArrayList<String> nlist = new ArrayList<String>(count);
+            final ArrayList<APIProductoModel> nlist = new ArrayList<>(count);
             String filterableString;
 
             for (int i = 0; i < count; i++) {
                 filterableString = (String) list.get(i).nombre;
                 if (filterableString.toString().toLowerCase().contains((CharSequence) filterString)) {
-                    nlist.add(filterableString);
+                    nlist.add(list.get(i));
                 }
             }
 
@@ -169,12 +168,12 @@ public abstract class ProductosRvAdapter extends RecyclerView.Adapter<ProductosR
         protected void publishResults(CharSequence constraint, FilterResults results) {
             try{
                 /** Casteo los valores al tipo de Lista que sirve de adaptador a mi Listview*/
-                values = (ArrayList<APIProductoModel>) results.values;
+                productsItems = (ArrayList<APIProductoModel>) results.values;
 
                 if (results.count > 0) {
                     notifyDataSetChanged();
                 } else {
-                    //notifyDataSetInvalidated();
+                    notifyDataSetChanged();
                 }
             }catch (Exception e) {
                 e.printStackTrace();
