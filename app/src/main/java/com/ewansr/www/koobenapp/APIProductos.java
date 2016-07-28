@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author edmsamuel
  */
 public abstract class APIProductos extends AppCompatActivity {
-    private ArrayList<APIProductoModel> productosItems;
+    public static ArrayList<APIProductoModel> productosItems;
     private int productosDesdeId = -1;
     private int productosHasta = 15;
 

@@ -29,6 +29,10 @@
             android:id="@+id/nav_configuracion"
             android:icon="@android:drawable/ic_menu_slideshow"
             android:title="Configuración" />
+        <item
+            android:id="@+id/nav_cerrarsesion"
+            android:icon="@android:drawable/ic_menu_slideshow"
+            android:title="Cerrar Sesión" />
     </group>
 
 </menu>

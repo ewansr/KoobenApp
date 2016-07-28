@@ -4,14 +4,12 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 
-import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,7 +17,6 @@ import android.widget.TextView;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.github.clans.fab.FloatingActionButton;
-import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import java.util.List;
 
@@ -93,9 +90,9 @@ public class cRvAdapter extends RecyclerView.Adapter<cRvAdapter.recipesViewHolde
 
 
             cv = (CardView)itemView.findViewById(R.id.cv);
-            recipeName = (TextView)itemView.findViewById(R.id.recipe_name);
-            recipeCode = (TextView)itemView.findViewById(R.id.recipe_descripcion);
-            img = (ImageView) itemView.findViewById(R.id.recipe_image);
+            recipeName = (TextView)itemView.findViewById(R.id.product_title);
+            recipeCode = (TextView)itemView.findViewById(R.id.product_description);
+            img = (ImageView) itemView.findViewById(R.id.product_image);
 //            btnExpand = (FloatingActionButton) itemView.findViewById(R.id.menu_item_compartir);
 
 //            cv.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
