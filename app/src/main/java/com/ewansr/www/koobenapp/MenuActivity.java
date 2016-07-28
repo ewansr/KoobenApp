@@ -11,10 +11,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuInflater;
 import android.widget.AdapterView;
 import android.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -23,17 +25,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
+import android.widget.Toast;
 import com.facebook.login.LoginManager;
+import static com.ewansr.www.koobenapp.SQLiteDBDataSource.deleteAll;
 
-import java.net.URL;
 
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
-    public  static String UrlJSON = cRutasAPI.UrlJSON_tiposReceta;
-    public static Context mainContext;
+    private  static String UrlJSON = cRutasAPI.UrlJSON_tiposReceta;
+    private static Context mainContext;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -84,17 +85,21 @@ public class MenuActivity extends AppCompatActivity
 
     }
 
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        /** inflar el menú y agregar los items a la barra si está disponible */
         getMenuInflater().inflate(R.menu.menu_menu, menu);
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search) .getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setQueryHint("Buscar una categoria");
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -118,6 +123,7 @@ public class MenuActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.action_logout) {
+            deleteAll(mainContext, "user_profile");//Borrar todos los registros de la BD
             LoginManager.getInstance().logOut();
             Intent i = new Intent(mainContext, LoginActivity.class);
             startActivity(i);
@@ -137,8 +143,18 @@ public class MenuActivity extends AppCompatActivity
         /** Controlar los elementos del NavigationView al hacer click**/
         int id = item.getItemId();
 
-        if (id == R.id.nav_compras) {
+        if (id == R.id.nav_productos) {
+            Intent i = new Intent(mainContext, ProductsActivity.class);
+            startActivity(i);
+            //Toast.makeText(mainContext, "presionaste Productos", Toast.LENGTH_SHORT).show();
+        }
 
+        if (id == R.id.nav_cerrarsesion){
+            deleteAll(mainContext, "user_profile");//Borrar todos los registros de la BD
+            LoginManager.getInstance().logOut();
+            Intent i = new Intent(mainContext, LoginActivity.class);
+            startActivity(i);
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.DrawerLayout);
@@ -192,7 +208,6 @@ public class MenuActivity extends AppCompatActivity
                 i.putExtra("IdTipoReceta", IdTipoRecetaSel);
                 startActivity(i);
             }});
-
             return rootView;
         }
 

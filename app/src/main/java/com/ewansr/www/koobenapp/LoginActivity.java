@@ -26,8 +26,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static com.ewansr.www.koobenapp.cUtils.setStatusColor;
 import static com.ewansr.www.koobenapp.SQLiteDBDataSource.getProfilesCount;
 
-
-
 /**
  * Created by EwanS on 20/06/2016.
  */
@@ -42,7 +40,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText password;
     private LoginButton facebookLogin;
     private CallbackManager callbackManager;
-
 
 
     @Override protected void onCreate(Bundle savedInstanceState) {

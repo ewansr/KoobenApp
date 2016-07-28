@@ -55,12 +55,12 @@ public class APIMisMenuItem extends APIMisMenuModel {
                     } catch ( KoobenException error ) {
                         menuItemCreateError( error );
                     } catch ( Exception error ) {
-                        menuItemCreateError( new KoobenException( KoobenExceptionCode.UNKNOWW, error.getMessage() ) );
+                        menuItemCreateError( new KoobenException( KoobenExceptionCode.UNKNOWN, error.getMessage() ) );
                     }
                 }
 
                 @Override public void KoobenRequestError(Exception error) {
-                    menuItemCreateError( new KoobenException( KoobenExceptionCode.UNKNOWW, error.getMessage() ) );
+                    menuItemCreateError( new KoobenException( KoobenExceptionCode.UNKNOWN, error.getMessage() ) );
                 }
             };
 
@@ -69,7 +69,7 @@ public class APIMisMenuItem extends APIMisMenuModel {
             menu.put( "portada", this.portada );
             request.post( APIKoobenRoutes.misMenus, menu );
         } catch ( Exception error ) {
-            menuItemCreateError( new KoobenException( KoobenExceptionCode.UNKNOWW, error.getMessage() ) );
+            menuItemCreateError( new KoobenException( KoobenExceptionCode.UNKNOWN, error.getMessage() ) );
         }
     }
 
@@ -101,12 +101,12 @@ public class APIMisMenuItem extends APIMisMenuModel {
                         ) );
 
                     } catch ( Exception error ) {
-                        menuItemUpdateError( new KoobenException( KoobenExceptionCode.UNKNOWW, error.getMessage() ) );
+                        menuItemUpdateError( new KoobenException( KoobenExceptionCode.UNKNOWN, error.getMessage() ) );
                     }
                 }
 
                 @Override public void KoobenRequestError( Exception error ) {
-                    menuItemUpdateError( new KoobenException( KoobenExceptionCode.UNKNOWW, error.getMessage() ) );
+                    menuItemUpdateError( new KoobenException( KoobenExceptionCode.UNKNOWN, error.getMessage() ) );
                 }
             };
 
@@ -116,7 +116,7 @@ public class APIMisMenuItem extends APIMisMenuModel {
             request.put( APIKoobenRoutes.miMenu( this.id ), menu );
 
         } catch ( Exception error ) {
-            menuItemUpdateError( new KoobenException( KoobenExceptionCode.UNKNOWW, error.getMessage() ) );
+            menuItemUpdateError( new KoobenException( KoobenExceptionCode.UNKNOWN, error.getMessage() ) );
         }
     }
 
@@ -146,19 +146,19 @@ public class APIMisMenuItem extends APIMisMenuModel {
                         }
 
                     } catch ( Exception error ) {
-                        menuItemDeleteError( new KoobenException( KoobenExceptionCode.UNKNOWW , error.getMessage() ) );
+                        menuItemDeleteError( new KoobenException( KoobenExceptionCode.UNKNOWN, error.getMessage() ) );
                     }
                 }
 
                 @Override public void KoobenRequestError(Exception error) {
-                    menuItemDeleteError( new KoobenException( KoobenExceptionCode.UNKNOWW, error.getMessage() ) );
+                    menuItemDeleteError( new KoobenException( KoobenExceptionCode.UNKNOWN, error.getMessage() ) );
                 }
             };
 
             request.delete( APIKoobenRoutes.miMenu( this.id ) );
 
         } catch ( Exception error ) {
-            menuItemDeleteError( new KoobenException( KoobenExceptionCode.UNKNOWW , error.getMessage() ) );
+            menuItemDeleteError( new KoobenException( KoobenExceptionCode.UNKNOWN, error.getMessage() ) );
         }
     }
 

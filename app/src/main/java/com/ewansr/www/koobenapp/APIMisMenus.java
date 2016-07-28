@@ -73,6 +73,11 @@ public abstract class APIMisMenus extends AppCompatActivity {
     }
 
 
+    /**
+     * Crea un nuevo menú
+     *
+     * @param nombre String Nombre del menú
+     */
     public void misMenusCreateNewItem( String nombre ) {
         APIMisMenuItem menu = new APIMisMenuItem( -1, nombre, "" ) {
             @Override public void menuItemBeforeCreate() {
@@ -126,6 +131,7 @@ public abstract class APIMisMenus extends AppCompatActivity {
 
     /**
      * Invoca la eliminación del elemento que se ubique en el indice especificado
+     *
      * @param index int Posición en la lista
      */
     public void misMenusDeleteItemForIndex( int index ) {

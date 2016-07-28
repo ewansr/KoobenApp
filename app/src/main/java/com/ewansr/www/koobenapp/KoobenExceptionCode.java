@@ -12,5 +12,5 @@ public enum KoobenExceptionCode {
     ITEMS_FOUND, ITEMS_NOT_FOUND,
     ITEMS_EMPTY,
 
-    UNKNOWW, INVALID_VALUES
+    UNKNOWN, INVALID_VALUES
 }

@@ -68,7 +68,16 @@ public class SQLiteDBDataSource {
         SQLiteDatabase db = dbh.getWritableDatabase();
         db.execSQL("delete from "+ TABLE_NAME);
         db.insert(TABLE_NAME, null, values);
+        db.close();
     }
+
+    public static void deleteAll(Context context, String Table){
+        SQLiteDbHelper dbh = new SQLiteDbHelper(context);
+        SQLiteDatabase db = dbh.getWritableDatabase();
+        db.execSQL("delete from "+ Table);
+        db.close();
+    }
+
 
     public static long getProfilesCount(Context context) {
         SQLiteDbHelper dbh = new SQLiteDbHelper(context);
@@ -77,5 +86,4 @@ public class SQLiteDBDataSource {
         db.close();
         return cnt;
     }
-
 }
