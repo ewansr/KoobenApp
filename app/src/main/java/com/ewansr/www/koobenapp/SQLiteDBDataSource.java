@@ -2,6 +2,7 @@ package com.ewansr.www.koobenapp;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
@@ -86,4 +87,20 @@ public class SQLiteDBDataSource {
         db.close();
         return cnt;
     }
+
+    public static String getSessionID(Context context){
+        SQLiteDbHelper dbh = new SQLiteDbHelper(context);
+        SQLiteDatabase db = dbh.getWritableDatabase();
+
+        long cnt  = DatabaseUtils.queryNumEntries(db, TABLE_NAME);
+        String ssid = "";
+        if (cnt > 0 ){
+            Cursor cursor= db.rawQuery("Select SessionID From "+TABLE_NAME, null );
+            cursor.moveToFirst();
+            ssid = cursor.getString(cursor.getColumnIndex("SessionID"));
+        }
+
+        return ssid;
+    }
+
 }

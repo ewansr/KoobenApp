@@ -23,6 +23,8 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import java.util.Arrays;
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.ewansr.www.koobenapp.SQLiteDBDataSource.getSessionID;
 import static com.ewansr.www.koobenapp.cUtils.setStatusColor;
 import static com.ewansr.www.koobenapp.SQLiteDBDataSource.getProfilesCount;
 
@@ -66,6 +68,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         facebookButtonInicializar();
 
         SQLiteDBDataSource dataSource = new SQLiteDBDataSource(this);
+        String s = getSessionID(context);
     }
 
 
